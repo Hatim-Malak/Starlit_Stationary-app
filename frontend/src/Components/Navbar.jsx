@@ -15,7 +15,7 @@ const Navbar = () => {
   return (
     <div className='relative'>
     <div className='bg-gradient-to-br from-blue-800 to-blue-400 w-full flex text-white px-3 font-medium fint justify-between items-center'>
-        <h1 className='text-xl'>StarStationary</h1>
+        <h1 className='text-xl'>Starlit Stationary</h1>
         <div className='flex items-center justify-center hidden lg:block lg:flex'>
             {(authUser&&authAdmin)&&(
               <>
