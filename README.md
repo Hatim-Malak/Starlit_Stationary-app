@@ -5,6 +5,8 @@
 ![repo-top-language](https://img.shields.io/github/languages/top/Hatim-Malak/Starlit_Stationary-app?style=flat&color=0080ff)
 ![repo-language-count](https://img.shields.io/github/languages/count/Hatim-Malak/Starlit_Stationary-app?style=flat&color=0080ff)
 
+---
+
 ### 🛠️ Built With
 ![Express](https://img.shields.io/badge/Express-000000.svg?style=flat&logo=Express&logoColor=white)
 ![JSON](https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white)
@@ -25,46 +27,51 @@
 
 ## 📚 Table of Contents
 - [Overview](#overview)
+- [Features](#features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Project Setup](#project-setup)
   - [Usage](#usage)
   - [Testing](#testing)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Return to Top](#-return-to-top)
 
 ---
 
 ## 🧩 Overview
 
-**Starlit_Stationary-app** is a full-stack e-commerce solution built with **React**, **Node.js**, and **MongoDB**, designed for scalable and maintainable online store development.  
-It offers a clean separation of frontend and backend components, supporting features like product management, user authentication, cart operations, and order processing.
+**Starlit_Stationary-app** is a full-stack e-commerce solution built with **React**, **Node.js**, and **MongoDB**.  
+It’s designed to deliver a fast, responsive, and scalable online stationery store experience with a secure backend and an elegant, modern frontend.
 
-### 💡 Why Starlit_Stationary-app?
+---
 
-This project empowers developers to rapidly build and extend a secure, high-performance e-commerce platform.
+## ✨ Features
 
-**Core Features:**
-- 🟣 **Modular Architecture:** Clear separation of frontend and backend for scalable development and easy maintenance.  
-- 🟢 **Fast Development Environment:** Integrated with Vite, Tailwind CSS, and ESLint for rapid, error-free UI creation.  
-- 🟡 **Secure Authentication:** Role-based access control with JWTs and protected routes for users and admins.  
-- 🔵 **Rich API Support:** Comprehensive endpoints for products, cart, orders, and admin management.  
-- 🟠 **Media Management:** Seamless image and video handling via Cloudinary integration.  
-- 🟣 **State Management:** Custom React stores for real-time, synchronized application data.  
+- 🟣 **Modular Architecture** – Clean separation of frontend and backend for scalability and maintainability.  
+- 🟢 **Fast Development Environment** – Powered by Vite, Tailwind CSS, and ESLint.  
+- 🟡 **Secure Authentication** – JWT-based login and role-based access for admins and users.  
+- 🔵 **Rich API Support** – Manage products, users, carts, and orders with well-defined APIs.  
+- 🟠 **Cloud Media Management** – Integrated with Cloudinary for images and media.  
+- 🟣 **State Management** – Real-time and synchronized data using custom React stores (Zustand).  
 
 ---
 
 ## 🚀 Getting Started
 
 ### 🧰 Prerequisites
-This project requires the following dependencies:
-- **Programming Language:** JavaScript  
-- **Package Manager:** npm  
+
+Ensure you have the following installed:
+- **Node.js** (v18 or above)
+- **npm** (comes with Node)
+- **MongoDB** (local or cloud, e.g., MongoDB Atlas)
 
 ---
 
 ### ⚙️ Installation
 
-Build **Starlit_Stationary-app** from the source and install dependencies:
-
-1. **Clone the repository:**
+1. **Clone the repository**
    ```bash
    git clone https://github.com/Hatim-Malak/Starlit_Stationary-app
