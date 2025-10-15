@@ -89,7 +89,7 @@ Make sure you have these installed:
    CLOUDINARY_URL=your_cloudinary_url
    JWT_SECRET=your_secret_key
 
-### ▶️ Usage
+# ▶️ Usage
 1. **To start the development server:**
     ```bash
     npm run dev
