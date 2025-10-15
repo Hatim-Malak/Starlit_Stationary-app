@@ -1,3 +1,5 @@
+<div align="center">
+
 # 🌟 STARLIT_STATIONARY-APP  
 *Empowering Creativity, Simplifying Stationery Shopping Experience*
 
@@ -5,9 +7,7 @@
 ![repo-top-language](https://img.shields.io/github/languages/top/Hatim-Malak/Starlit_Stationary-app?style=flat&color=0080ff)
 ![repo-language-count](https://img.shields.io/github/languages/count/Hatim-Malak/Starlit_Stationary-app?style=flat&color=0080ff)
 
----
-
-### 🛠️ Built With
+### 🧰 Built with
 ![Express](https://img.shields.io/badge/Express-000000.svg?style=flat&logo=Express&logoColor=white)
 ![JSON](https://img.shields.io/badge/JSON-000000.svg?style=flat&logo=JSON&logoColor=white)
 ![Markdown](https://img.shields.io/badge/Markdown-000000.svg?style=flat&logo=Markdown&logoColor=white)
@@ -23,50 +23,46 @@
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3.svg?style=flat&logo=ESLint&logoColor=white)
 ![Axios](https://img.shields.io/badge/Axios-5A29E4.svg?style=flat&logo=Axios&logoColor=white)
 
+</div>
+
 ---
 
-## 📚 Table of Contents
+## 📑 Table of Contents
 - [Overview](#overview)
-- [Features](#features)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Project Setup](#project-setup)
+  - [Set Up Environment Variables](#set-up-environment-variables)
   - [Usage](#usage)
   - [Testing](#testing)
-- [Folder Structure](#folder-structure)
-- [Contributing](#contributing)
-- [License](#license)
-- [Return to Top](#-return-to-top)
+- [⬆ Return to Top](#top)
 
 ---
 
-## 🧩 Overview
+## 🧭 Overview
+**Starlit_Stationary-app** is a full-stack e-commerce solution built with React, Node.js, and MongoDB — designed for scalable, maintainable online store development.  
+It supports features like product management, user authentication, cart operations, and order processing.
 
-**Starlit_Stationary-app** is a full-stack e-commerce solution built with **React**, **Node.js**, and **MongoDB**.  
-It’s designed to deliver a fast, responsive, and scalable online stationery store experience with a secure backend and an elegant, modern frontend.
+### 💡 Why Starlit_Stationary-app?
+This project empowers developers to rapidly build and extend a secure, high-performance e-commerce platform.
 
----
-
-## ✨ Features
-
-- 🟣 **Modular Architecture** – Clean separation of frontend and backend for scalability and maintainability.  
-- 🟢 **Fast Development Environment** – Powered by Vite, Tailwind CSS, and ESLint.  
-- 🟡 **Secure Authentication** – JWT-based login and role-based access for admins and users.  
-- 🔵 **Rich API Support** – Manage products, users, carts, and orders with well-defined APIs.  
-- 🟠 **Cloud Media Management** – Integrated with Cloudinary for images and media.  
-- 🟣 **State Management** – Real-time and synchronized data using custom React stores (Zustand).  
+**Core Features:**
+- 🧩 **Modular Architecture:** Clear frontend-backend separation for scalability.  
+- 🚀 **Fast Development:** Built with Vite, Tailwind CSS, and ESLint.  
+- 🔒 **Secure Authentication:** JWT-based role access for users and admins.  
+- 🌐 **Rich API Support:** Endpoints for products, cart, orders, and admin controls.  
+- 🎨 **Media Management:** Cloudinary integration for easy image/video handling.  
+- ⚙️ **State Management:** Custom React stores for real-time data sync.
 
 ---
 
 ## 🚀 Getting Started
 
-### 🧰 Prerequisites
-
-Ensure you have the following installed:
-- **Node.js** (v18 or above)
-- **npm** (comes with Node)
-- **MongoDB** (local or cloud, e.g., MongoDB Atlas)
+### 🧱 Prerequisites
+Make sure you have these installed:
+- **Node.js** (v16 or above)
+- **npm** (comes with Node.js)
+- **MongoDB** (local or cloud connection)
 
 ---
 
@@ -75,3 +71,30 @@ Ensure you have the following installed:
 1. **Clone the repository**
    ```bash
    git clone https://github.com/Hatim-Malak/Starlit_Stationary-app
+
+2. **Navigate to the project directory**
+   ```bash
+   cd Starlit_Stationary-app
+
+3. **Install dependencies**
+   ```bash
+   npm install
+
+4. **Set up environment variables**
+
+- Create a .env file in the root folder.
+- Add your environment variables:
+   ```bash
+   MONGO_URI=your_mongodb_connection_string
+   CLOUDINARY_URL=your_cloudinary_url
+   JWT_SECRET=your_secret_key
+
+###▶️ Usage
+1. **To start the development server:**
+    ```bash
+    npm run dev
+2. **🧪 Testing**
+Run the test suite:
+   ```bash
+   npm test
+   
