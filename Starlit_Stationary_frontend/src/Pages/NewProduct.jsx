@@ -55,7 +55,7 @@ const NewProduct = () => {
   }  
   return (
     <>
-    <div className='min-h-screen flex flex-col bg-gradient-to-r from-blue-600 to-blue-700'>
+    <div className='min-h-screen flex flex-col bg-gradient-to-r from-primary to-secondary'>
       <Navbar/>
       
       <div className='flex-1 w-full py-8 px-4 sm:px-6 lg:px-8'>
@@ -64,11 +64,11 @@ const NewProduct = () => {
           <div className='mb-8 text-center'>
             <div className='flex items-center justify-center gap-3 mb-3'>
               <div className='p-3 bg-white rounded-xl shadow-lg'>
-                <Package className='w-8 h-8 text-blue-600' />
+                <Package className='w-8 h-8 text-primary' />
               </div>
               <h1 className='text-4xl font-bold text-white'>Add New Product</h1>
             </div>
-            <p className='text-blue-100 text-lg'>Fill in the product details below to add it to your inventory</p>
+            <p className='text-accent text-lg'>Fill in the product details below to add it to your inventory</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -82,19 +82,19 @@ const NewProduct = () => {
                   </h2>
                   <div className='relative group'>
                     {/* Outer glow ring */}
-                    <div className='absolute -inset-2 bg-gradient-to-r from-blue-400 to-blue-300 rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity'></div>
+                    <div className='absolute -inset-2 bg-gradient-to-r from-secondary to-primary rounded-full blur-lg opacity-75 group-hover:opacity-100 transition-opacity'></div>
                     
                     {/* Main image container */}
                     <div className='relative size-[240px] rounded-full bg-white shadow-2xl overflow-hidden border-[6px] border-white'>
                       {product.image ? (
                         <img src={product.image} className='h-full w-full object-cover' alt="product preview" />
                       ) : (
-                        <div className='h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-blue-50 to-white'>
-                          <div className='bg-blue-600 p-6 rounded-full mb-4'>
+                        <div className='h-full w-full flex flex-col items-center justify-center bg-gradient-to-br from-warm-100 via-warm-50 to-warm'>
+                          <div className='bg-primary p-6 rounded-full mb-4'>
                             <Upload className='w-12 h-12 text-white' />
                           </div>
-                          <span className='font-semibold text-blue-600'>Upload Photo</span>
-                          <span className='text-sm text-blue-400 mt-1'>Click button below</span>
+                          <span className='font-semibold text-primary'>Upload Photo</span>
+                          <span className='text-sm text-secondary mt-1'>Click button below</span>
                         </div>
                       )}
                     </div>
@@ -102,7 +102,7 @@ const NewProduct = () => {
                     {/* Upload button */}
                     <label 
                       htmlFor='avatar-upload' 
-                      className='absolute bottom-2 right-2 cursor-pointer bg-gradient-to-r from-blue-600 to-blue-700 rounded-full p-4 shadow-2xl border-4 border-white hover:scale-110 hover:rotate-12 transition-all duration-300 disabled:opacity-50'
+                      className='absolute bottom-2 right-2 cursor-pointer bg-gradient-to-r from-primary to-secondary rounded-full p-4 shadow-2xl border-4 border-white hover:scale-110 hover:rotate-12 transition-all duration-300 disabled:opacity-50'
                     >
                       <Camera className='w-7 h-7 text-white' />
                       <input
@@ -124,7 +124,7 @@ const NewProduct = () => {
 
             {/* Form Fields Section */}
             <div className='bg-white rounded-3xl shadow-2xl p-8 mb-6'>
-              <h2 className='font-bold text-2xl text-blue-700 mb-6 pb-4 border-b-2 border-blue-100 flex items-center gap-2'>
+              <h2 className='font-bold text-2xl text-primary mb-6 pb-4 border-b-2 border-accent flex items-center gap-2'>
                 <Package className='w-6 h-6' />
                 Product Information
               </h2>
@@ -132,11 +132,11 @@ const NewProduct = () => {
               {/* Row 1 - Basic Info */}
               <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-6'>
                 <div className='flex flex-col'>
-                  <label htmlFor="name" className='mb-2 font-semibold text-blue-700 text-sm'>
+                  <label htmlFor="name" className='mb-2 font-semibold text-primary text-sm'>
                     Product Name <span className='text-red-500'>*</span>
                   </label>
                   <input 
-                    className='bg-blue-50 border-2 border-blue-200 py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all hover:border-blue-300' 
+                    className='bg-warm border-2 border-accent py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all hover:border-accent/50' 
                     value={product.name} 
                     onChange={(e)=>setproduct({...product,name:e.target.value})} 
                     placeholder='Enter product name' 
@@ -146,11 +146,11 @@ const NewProduct = () => {
                 </div>
                 
                 <div className='flex flex-col'>
-                  <label htmlFor="price" className='mb-2 font-semibold text-blue-700 text-sm'>
+                  <label htmlFor="price" className='mb-2 font-semibold text-primary text-sm'>
                     Price ($) <span className='text-red-500'>*</span>
                   </label>
                   <input 
-                    className='bg-blue-50 border-2 border-blue-200 py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all hover:border-blue-300' 
+                    className='bg-warm border-2 border-accent py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all hover:border-accent/50' 
                     value={product.price} 
                     onChange={(e)=>setproduct({...product,price:Number(e.target.value)})} 
                     placeholder='0.00' 
@@ -160,11 +160,11 @@ const NewProduct = () => {
                 </div>
                 
                 <div className='flex flex-col'>
-                  <label htmlFor="stock" className='mb-2 font-semibold text-blue-700 text-sm'>
+                  <label htmlFor="stock" className='mb-2 font-semibold text-primary text-sm'>
                     Stock Quantity <span className='text-red-500'>*</span>
                   </label>
                   <input 
-                    className='bg-blue-50 border-2 border-blue-200 py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all hover:border-blue-300' 
+                    className='bg-warm border-2 border-accent py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all hover:border-accent/50' 
                     value={product.stock} 
                     onChange={(e)=>setproduct({...product,stock:Number(e.target.value)})} 
                     placeholder='0' 
@@ -176,11 +176,11 @@ const NewProduct = () => {
 
               {/* Row 2 - Description */}
               <div className='mb-6'>
-                <label htmlFor="description" className='mb-2 font-semibold text-blue-700 text-sm block'>
+                <label htmlFor="description" className='mb-2 font-semibold text-primary text-sm block'>
                   Product Description
                 </label>
                 <textarea 
-                  className='w-full bg-blue-50 border-2 border-blue-200 py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all resize-none hover:border-blue-300' 
+                  className='w-full bg-warm border-2 border-accent py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all resize-none hover:border-accent/50' 
                   value={product.description} 
                   onChange={(e)=>setproduct({...product,description:e.target.value})} 
                   placeholder='Enter a detailed description of the product...' 
@@ -192,7 +192,7 @@ const NewProduct = () => {
               {/* Row 3 - Category and Featured */}
               <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                 <div className='flex flex-col'>
-                  <label htmlFor="category" className='mb-2 font-semibold text-blue-700 text-sm'>
+                  <label htmlFor="category" className='mb-2 font-semibold text-primary text-sm'>
                     Category <span className='text-red-500'>*</span>
                   </label>
                   <select 
@@ -200,7 +200,7 @@ const NewProduct = () => {
                     value={product.category} 
                     onChange={(e)=>setproduct({...product,category:e.target.value})} 
                     id="category" 
-                    className='bg-blue-50 border-2 border-blue-200 py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition-all cursor-pointer hover:border-blue-300'
+                    className='bg-warm border-2 border-accent py-3 px-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-secondary focus:border-secondary transition-all cursor-pointer hover:border-accent/50'
                   >
                     <option value="">Select a category</option>
                     <option value="Writing Instruments">Writing Instruments</option>
@@ -215,7 +215,7 @@ const NewProduct = () => {
                 </div>
                 
                 <div className='flex flex-col'>
-                  <label className='mb-2 font-semibold text-blue-700 text-sm'>
+                  <label className='mb-2 font-semibold text-primary text-sm'>
                     Featured Product <span className='text-red-500'>*</span>
                   </label>
                   <div className='flex items-center gap-8 h-[50px]'>
@@ -226,9 +226,9 @@ const NewProduct = () => {
                         onChange={(e)=>setproduct({...product,featured:e.target.value})} 
                         checked={product.featured === "Yes"} 
                         value='Yes'
-                        className='w-5 h-5 text-blue-600 border-blue-300 focus:ring-blue-600 cursor-pointer'
+                        className='w-5 h-5 text-primary border-accent/50 focus:ring-secondary cursor-pointer'
                       />
-                      <span className='text-gray-700 font-medium group-hover:text-blue-600 transition-colors'>Yes</span>
+                      <span className='text-gray-700 font-medium group-hover:text-primary transition-colors'>Yes</span>
                     </label>
                     <label className='flex items-center gap-2 cursor-pointer group'>
                       <input 
@@ -237,9 +237,9 @@ const NewProduct = () => {
                         onChange={(e)=>setproduct({...product,featured:e.target.value})} 
                         checked={product.featured === "No"} 
                         value='No'
-                        className='w-5 h-5 text-blue-600 border-blue-300 focus:ring-blue-600 cursor-pointer'
+                        className='w-5 h-5 text-primary border-accent/50 focus:ring-secondary cursor-pointer'
                       />
-                      <span className='text-gray-700 font-medium group-hover:text-blue-600 transition-colors'>No</span>
+                      <span className='text-gray-700 font-medium group-hover:text-primary transition-colors'>No</span>
                     </label>
                   </div>
                 </div>
@@ -250,7 +250,7 @@ const NewProduct = () => {
             <button
               type="submit"
               disabled={addingProduct}
-              className='w-full p-5 rounded-2xl font-bold text-lg text-blue-700 bg-white hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-3 transition-all shadow-2xl hover:shadow-white/30 hover:scale-[1.02]'
+              className='w-full p-5 rounded-2xl font-bold text-lg text-primary bg-white hover:bg-warm disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center gap-3 transition-all shadow-2xl hover:shadow-white/30 hover:scale-[1.02]'
             >
               {addingProduct ? (
                 <>

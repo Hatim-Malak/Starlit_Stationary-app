@@ -32,15 +32,15 @@ const SignInPage = () => {
 
   return (
     <PageTransition>
-      <div className='flex flex-col min-h-screen bg-gray-50'>
+      <div className='flex flex-col min-h-screen bg-warm'>
         <Navbar/>
         
         <div className="flex-1 flex flex-col lg:flex-row w-full">
           {/* Left Side - Welcome Section */}
-          <div className='relative bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 lg:w-2/5 w-full lg:min-h-screen min-h-[400px] flex flex-col gap-6 justify-center items-center px-8 py-12 lg:py-0 overflow-hidden'>
+          <div className='relative bg-gradient-to-br from-primary via-secondary to-primary lg:w-2/5 w-full lg:min-h-screen min-h-[400px] flex flex-col gap-6 justify-center items-center px-8 py-12 lg:py-0 overflow-hidden'>
             {/* Decorative Elements */}
             <div className='absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl'></div>
-            <div className='absolute bottom-20 right-10 w-80 h-80 bg-blue-400/20 rounded-full blur-3xl'></div>
+            <div className='absolute bottom-20 right-10 w-80 h-80 bg-accent/20 rounded-full blur-3xl'></div>
             
             {/* Content */}
             <div className='relative z-10 flex flex-col gap-6 items-center text-center max-w-md'>
@@ -54,7 +54,7 @@ const SignInPage = () => {
                 <h1 className='text-white font-bold text-4xl lg:text-5xl leading-tight'>
                   Hello, Welcome Back!
                 </h1>
-                <p className='text-blue-100 text-lg lg:text-xl leading-relaxed'>
+                <p className='text-accent text-lg lg:text-xl leading-relaxed'>
                   Don't have an account yet? Join our community today.
                 </p>
               </div>
@@ -62,14 +62,14 @@ const SignInPage = () => {
               {/* Sign Up Button */}
               <Link 
                 to='/signup' 
-                className='group mt-4 flex items-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300'
+                className='group mt-4 flex items-center gap-3 bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300'
               >
                 <span>Sign Up</span>
                 <ArrowRight className='group-hover:translate-x-1 transition-transform' size={20} />
               </Link>
 
               {/* Trust Indicators */}
-              <div className='mt-8 flex items-center gap-2 text-blue-100 text-sm'>
+              <div className='mt-8 flex items-center gap-2 text-accent text-sm'>
                 <ShieldCheck size={20} />
                 <span>Secure & encrypted connection</span>
               </div>
@@ -102,7 +102,7 @@ const SignInPage = () => {
                       value={formData.email} 
                       onChange={(e)=>setformData({...formData,email:e.target.value})} 
                       placeholder='Enter your email'
-                      className='w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all'
+                      className='w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition-all'
                     />
                   </div>
                 </div>
@@ -122,7 +122,7 @@ const SignInPage = () => {
                       value={formData.password} 
                       onChange={(e)=>setformData({...formData,password:e.target.value})} 
                       placeholder='Enter your password'
-                      className='w-full pl-12 pr-12 py-3.5 bg-white border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all'
+                      className='w-full pl-12 pr-12 py-3.5 bg-white border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition-all'
                     />
                     <button 
                       type='button' 
@@ -138,7 +138,7 @@ const SignInPage = () => {
                 <button
                   type="submit"
                   disabled={isSigningIn}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex justify-center items-center gap-3"
+                  className="w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex justify-center items-center gap-3"
                 >
                   {isSigningIn ? (
                     <>
@@ -158,7 +158,7 @@ const SignInPage = () => {
               <div className='text-center pt-4'>
                 <p className='text-gray-600'>
                   New to Starlit Stationary?{' '}
-                  <Link to='/signup' className='text-blue-600 font-semibold hover:text-blue-700 hover:underline transition-colors'>
+                  <Link to='/signup' className='text-primary font-semibold hover:text-primary hover:underline transition-colors'>
                     Create an account
                   </Link>
                 </p>

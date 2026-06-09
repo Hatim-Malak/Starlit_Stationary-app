@@ -84,37 +84,37 @@ const AdminOrders = () => {
                 </div>)}
                 
                 <div className='p-6'>
-                  <div className='flex items-center gap-2 mb-6 pb-4 border-b-2 border-blue-100'>
-                    <div className='p-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg'>
+                  <div className='flex items-center gap-2 mb-6 pb-4 border-b-2 border-accent'>
+                    <div className='p-2 bg-gradient-to-r from-primary to-secondary rounded-lg'>
                       <Package className='w-5 h-5 text-white' />
                     </div>
-                    <h1 className='text-2xl font-bold text-blue-700'>Order Details</h1>
+                    <h1 className='text-2xl font-bold text-primary'>Order Details</h1>
                   </div>
 
                   {/* Shipping Information */}
-                  <div className='bg-blue-50 rounded-xl p-4 mb-6 space-y-3'>
-                    <h2 className='font-semibold text-blue-700 mb-3 flex items-center gap-2'>
+                  <div className='bg-warm rounded-xl p-4 mb-6 space-y-3'>
+                    <h2 className='font-semibold text-primary mb-3 flex items-center gap-2'>
                       <MapPin className='w-4 h-4' />
                       Shipping Information
                     </h2>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
                       <div className='flex items-center gap-2'>
-                        <User className='w-4 h-4 text-blue-600' />
+                        <User className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Name:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.fullName}</span>
                       </div>
                       <div className='flex items-center gap-2'>
-                        <Phone className='w-4 h-4 text-blue-600' />
+                        <Phone className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Phone:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.mobileNumber}</span>
                       </div>
                       <div className='flex items-center gap-2 md:col-span-2'>
-                        <MapPin className='w-4 h-4 text-blue-600' />
+                        <MapPin className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Address:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.address}</span>
                       </div>
                       <div className='flex items-center gap-2'>
-                        <Hash className='w-4 h-4 text-blue-600' />
+                        <Hash className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Postal Code:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.postalCode}</span>
                       </div>
@@ -123,12 +123,12 @@ const AdminOrders = () => {
 
                   {/* Products Table */}
                   <div className='mb-6'>
-                    <h2 className='font-semibold text-blue-700 mb-3 flex items-center gap-2'>
+                    <h2 className='font-semibold text-primary mb-3 flex items-center gap-2'>
                       <ShoppingBag className='w-4 h-4' />
                       Products
                     </h2>
                     <div className='border-2 border-gray-200 rounded-xl overflow-hidden'>
-                      <div className='bg-gradient-to-r from-blue-600 to-blue-700 text-white'>
+                      <div className='bg-gradient-to-r from-primary to-secondary text-white'>
                         <div className='flex justify-between items-center p-3'>
                           <h3 className='font-semibold w-[40%]'>Product Name</h3>
                           <h3 className='font-semibold w-[20%] text-center'>Price</h3>
@@ -139,7 +139,7 @@ const AdminOrders = () => {
                       <div className='divide-y divide-gray-200'>
                         {item.map((pro,idx)=>{
                           return(
-                            <div key={idx} className='flex justify-between items-center p-3 hover:bg-blue-50 transition-colors'>
+                            <div key={idx} className='flex justify-between items-center p-3 hover:bg-warm transition-colors'>
                               <h3 className='text-gray-900 font-medium w-[40%]'>{pro.product?.name}</h3>
                               <h3 className='text-gray-700 w-[20%] text-center'>${pro.product?.price}</h3>
                               <h3 className='text-gray-700 w-[20%] text-center'>{pro.quantity}</h3>
@@ -148,13 +148,13 @@ const AdminOrders = () => {
                           )
                         })}
                       </div>
-                      <div className='bg-blue-50 p-4 border-t-2 border-blue-200'>
+                      <div className='bg-warm p-4 border-t-2 border-accent'>
                         <div className='flex justify-between items-center'>
-                          <span className='text-blue-700 font-semibold text-lg flex items-center gap-2'>
+                          <span className='text-primary font-semibold text-lg flex items-center gap-2'>
                             <DollarSign className='w-5 h-5' />
                             Grand Total
                           </span>
-                          <span className='text-2xl font-bold text-blue-700'>${all.totalPrice}</span>
+                          <span className='text-2xl font-bold text-primary'>${all.totalPrice}</span>
                         </div>
                       </div>
                     </div>
@@ -162,7 +162,7 @@ const AdminOrders = () => {
 
                   {/* OTP Verification */}
                   {!(all.isOrderCanceled.isTrue||all.isDelivered)&&(
-                  <div className='bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-5 mb-6'>
+                  <div className='bg-gradient-to-r from-primary to-secondary rounded-xl p-5 mb-6'>
                     <div className='flex flex-col md:flex-row md:justify-between md:items-center gap-4'>
                       <h3 className='font-semibold text-white text-lg'>Delivery Verification OTP</h3>
                       <div className='flex justify-center gap-2'>
@@ -181,7 +181,7 @@ const AdminOrders = () => {
                               }
                               inputRefs.current[all._id][index] = el;
                             }} 
-                            className='w-10 h-10 md:w-12 md:h-12 text-center text-xl font-bold bg-white border-2 border-blue-300 rounded-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-300 outline-none transition-all' 
+                            className='w-10 h-10 md:w-12 md:h-12 text-center text-xl font-bold bg-white border-2 border-accent/50 rounded-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-300 outline-none transition-all' 
                           />
                         ))}
                       </div>
@@ -284,37 +284,37 @@ const AdminOrders = () => {
                 </div>)}
                 
                 <div className='p-6'>
-                  <div className='flex items-center gap-2 mb-6 pb-4 border-b-2 border-blue-100'>
-                    <div className='p-2 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg'>
+                  <div className='flex items-center gap-2 mb-6 pb-4 border-b-2 border-accent'>
+                    <div className='p-2 bg-gradient-to-r from-primary to-secondary rounded-lg'>
                       <Package className='w-5 h-5 text-white' />
                     </div>
-                    <h1 className='text-2xl font-bold text-blue-700'>Order Details</h1>
+                    <h1 className='text-2xl font-bold text-primary'>Order Details</h1>
                   </div>
 
                   {/* Shipping Information */}
-                  <div className='bg-blue-50 rounded-xl p-4 mb-6 space-y-3'>
-                    <h2 className='font-semibold text-blue-700 mb-3 flex items-center gap-2'>
+                  <div className='bg-warm rounded-xl p-4 mb-6 space-y-3'>
+                    <h2 className='font-semibold text-primary mb-3 flex items-center gap-2'>
                       <MapPin className='w-4 h-4' />
                       Shipping Information
                     </h2>
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
                       <div className='flex items-center gap-2'>
-                        <User className='w-4 h-4 text-blue-600' />
+                        <User className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Name:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.fullName}</span>
                       </div>
                       <div className='flex items-center gap-2'>
-                        <Phone className='w-4 h-4 text-blue-600' />
+                        <Phone className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Phone:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.mobileNumber}</span>
                       </div>
                       <div className='flex items-center gap-2 md:col-span-2'>
-                        <MapPin className='w-4 h-4 text-blue-600' />
+                        <MapPin className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Address:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.address}</span>
                       </div>
                       <div className='flex items-center gap-2'>
-                        <Hash className='w-4 h-4 text-blue-600' />
+                        <Hash className='w-4 h-4 text-primary' />
                         <span className='text-gray-600 text-sm'>Postal Code:</span>
                         <span className='font-medium text-gray-900'>{all.shippingAddress.postalCode}</span>
                       </div>
@@ -323,12 +323,12 @@ const AdminOrders = () => {
 
                   {/* Products Table */}
                   <div className='mb-6'>
-                    <h2 className='font-semibold text-blue-700 mb-3 flex items-center gap-2'>
+                    <h2 className='font-semibold text-primary mb-3 flex items-center gap-2'>
                       <ShoppingBag className='w-4 h-4' />
                       Products
                     </h2>
                     <div className='border-2 border-gray-200 rounded-xl overflow-hidden'>
-                      <div className='bg-gradient-to-r from-blue-600 to-blue-700 text-white'>
+                      <div className='bg-gradient-to-r from-primary to-secondary text-white'>
                         <div className='flex justify-between items-center p-3'>
                           <h3 className='font-semibold w-[40%]'>Product Name</h3>
                           <h3 className='font-semibold w-[20%] text-center'>Price</h3>
@@ -339,7 +339,7 @@ const AdminOrders = () => {
                       <div className='divide-y divide-gray-200'>
                         {item.map((pro,idx)=>{
                           return(
-                            <div key={idx} className='flex justify-between items-center p-3 hover:bg-blue-50 transition-colors'>
+                            <div key={idx} className='flex justify-between items-center p-3 hover:bg-warm transition-colors'>
                               <h3 className='text-gray-900 font-medium w-[40%]'>{pro.product?.name}</h3>
                               <h3 className='text-gray-700 w-[20%] text-center'>${pro.product?.price}</h3>
                               <h3 className='text-gray-700 w-[20%] text-center'>{pro.quantity}</h3>
@@ -348,13 +348,13 @@ const AdminOrders = () => {
                           )
                         })}
                       </div>
-                      <div className='bg-blue-50 p-4 border-t-2 border-blue-200'>
+                      <div className='bg-warm p-4 border-t-2 border-accent'>
                         <div className='flex justify-between items-center'>
-                          <span className='text-blue-700 font-semibold text-lg flex items-center gap-2'>
+                          <span className='text-primary font-semibold text-lg flex items-center gap-2'>
                             <DollarSign className='w-5 h-5' />
                             Grand Total
                           </span>
-                          <span className='text-2xl font-bold text-blue-700'>${all.totalPrice}</span>
+                          <span className='text-2xl font-bold text-primary'>${all.totalPrice}</span>
                         </div>
                       </div>
                     </div>
@@ -362,7 +362,7 @@ const AdminOrders = () => {
 
                   {/* OTP Verification */}
                   {!(all.isOrderCanceled.isTrue||all.isDelivered)&&(
-                  <div className='bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl p-5 mb-6'>
+                  <div className='bg-gradient-to-r from-primary to-secondary rounded-xl p-5 mb-6'>
                     <div className='flex flex-col md:flex-row md:justify-between md:items-center gap-4'>
                       <h3 className='font-semibold text-white text-lg'>Delivery Verification OTP</h3>
                       <div className='flex justify-center gap-2'>
@@ -381,7 +381,7 @@ const AdminOrders = () => {
                               }
                               inputRefs.current[all._id][index] = el;
                             }} 
-                            className='w-10 h-10 md:w-12 md:h-12 text-center text-xl font-bold bg-white border-2 border-blue-300 rounded-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-300 outline-none transition-all' 
+                            className='w-10 h-10 md:w-12 md:h-12 text-center text-xl font-bold bg-white border-2 border-accent/50 rounded-lg focus:border-yellow-400 focus:ring-2 focus:ring-yellow-300 outline-none transition-all' 
                           />
                         ))}
                       </div>
@@ -473,15 +473,15 @@ const AdminOrders = () => {
         });
     }  
   return (
-    <div className='min-h-screen flex flex-col w-full bg-gradient-to-r from-blue-600 to-blue-700'>
+    <div className='min-h-screen flex flex-col w-full bg-gradient-to-r from-primary to-secondary'>
         <Navbar/>
         <div className='flex-1 flex justify-center items-center w-full py-8 px-4'>
             <div className='h-full max-w-6xl w-full bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 flex flex-col overflow-hidden'>
                 {/* Header Section */}
-                <div className='bg-gradient-to-r from-blue-600 to-blue-700 p-6'>
+                <div className='bg-gradient-to-r from-primary to-secondary p-6'>
                   <div className='flex items-center gap-3 mb-4'>
                     <div className='p-3 bg-white rounded-xl'>
-                      <Package className='w-7 h-7 text-blue-600' />
+                      <Package className='w-7 h-7 text-primary' />
                     </div>
                     <h1 className='text-3xl font-bold text-white'>Order Management</h1>
                   </div>
@@ -496,10 +496,10 @@ const AdminOrders = () => {
                         onChange={handleSearchChange} 
                         className='w-full rounded-xl py-3 pl-12 pr-4 bg-white border-2 border-white/50 focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 outline-none transition-all shadow-md'
                       />
-                      <Search className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-600' />
+                      <Search className='absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-primary' />
                       <button 
                         type='submit' 
-                        className='absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-lg font-medium transition-all' 
+                        className='absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white px-4 py-2 rounded-lg font-medium transition-all' 
                         disabled={gettingSpecificOrders}
                       >
                         Search
@@ -512,14 +512,14 @@ const AdminOrders = () => {
                         onChange={handleCategoryChange}
                         disabled={gettingAllOrders}
                         id="category"
-                        className="w-full appearance-none bg-white text-blue-700 font-semibold py-3 pl-4 pr-10 rounded-xl border-2 border-white/50 focus:outline-none focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 transition-all cursor-pointer shadow-md"
+                        className="w-full appearance-none bg-white text-primary font-semibold py-3 pl-4 pr-10 rounded-xl border-2 border-white/50 focus:outline-none focus:border-yellow-300 focus:ring-2 focus:ring-yellow-200 transition-all cursor-pointer shadow-md"
                       >
                         <option value="all">All Orders</option>
                         <option value="pending">Pending</option>
                         <option value="delivered">Delivered</option>
                       </select>
                       <div className="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
-                        <svg className="w-5 h-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
+                        <svg className="w-5 h-5 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                         </svg>
                       </div>
@@ -543,8 +543,8 @@ const AdminOrders = () => {
                         return (
                           <div className='flex justify-center items-center h-full w-full'>
                             <div className='flex flex-col items-center gap-4'>
-                              <Loader className="w-12 h-12 animate-spin text-blue-600" />
-                              <p className='text-blue-600 font-medium'>Loading orders...</p>
+                              <Loader className="w-12 h-12 animate-spin text-primary" />
+                              <p className='text-primary font-medium'>Loading orders...</p>
                             </div>
                           </div>
                         );
@@ -553,8 +553,8 @@ const AdminOrders = () => {
                       if (!productsToDisplay || productsToDisplay.length === 0) {
                         return (
                           <div className='flex flex-col items-center justify-center h-full gap-4 p-10 text-center'>
-                            <div className='p-6 bg-blue-100 rounded-full'>
-                              <SearchX className='w-16 h-16 text-blue-600' strokeWidth={1.5} />
+                            <div className='p-6 bg-warm-100 rounded-full'>
+                              <SearchX className='w-16 h-16 text-primary' strokeWidth={1.5} />
                             </div>
                             <div className='mt-2'>
                               <h3 className='text-2xl font-bold text-gray-800'>No Orders Found</h3>

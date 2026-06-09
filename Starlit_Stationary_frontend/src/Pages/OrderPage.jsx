@@ -70,7 +70,7 @@ const OrderPage = () => {
   }
 
   return (
-    <div className='w-full min-h-screen flex flex-col bg-gray-50'>
+    <div className='w-full min-h-screen flex flex-col bg-warm'>
       <Navbar />
       <div className='flex-1 py-8 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-7xl mx-auto'>
@@ -85,8 +85,8 @@ const OrderPage = () => {
             <div className='lg:col-span-2'>
               <div className='bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8'>
                 <div className='flex items-center gap-3 mb-6'>
-                  <div className='w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center'>
-                    <ShoppingBag className='w-5 h-5 text-blue-600' />
+                  <div className='w-10 h-10 bg-warm-100 rounded-full flex items-center justify-center'>
+                    <ShoppingBag className='w-5 h-5 text-primary' />
                   </div>
                   <h2 className='text-2xl font-bold text-gray-900'>Shipping Information</h2>
                 </div>
@@ -103,7 +103,7 @@ const OrderPage = () => {
                       placeholder='Enter your full name'
                       value={shippingAddress.fullName}
                       onChange={(e) => setshippingAddress({ ...shippingAddress, fullName: e.target.value })}
-                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none'
+                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent transition-all outline-none'
                     />
                   </div>
 
@@ -118,7 +118,7 @@ const OrderPage = () => {
                       value={shippingAddress.address}
                       onChange={(e) => setshippingAddress({ ...shippingAddress, address: e.target.value })}
                       rows='3'
-                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none resize-none'
+                      className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent transition-all outline-none resize-none'
                     />
                   </div>
 
@@ -137,7 +137,7 @@ const OrderPage = () => {
                         onChange={(e) => setshippingAddress({ ...shippingAddress, mobileNumber: e.target.value })}
                         minLength='10'
                         maxLength='10'
-                        className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none'
+                        className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent transition-all outline-none'
                       />
                     </div>
 
@@ -152,7 +152,7 @@ const OrderPage = () => {
                         placeholder='Enter postal code'
                         value={shippingAddress.postalCode}
                         onChange={(e) => setshippingAddress({ ...shippingAddress, postalCode: e.target.value })}
-                        className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none'
+                        className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-transparent transition-all outline-none'
                       />
                     </div>
                   </div>
@@ -177,7 +177,7 @@ const OrderPage = () => {
                   <button
                     type='submit'
                     disabled={placingOrder}
-                    className='lg:hidden w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-blue-200'
+                    className='lg:hidden w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg shadow-accent/30'
                   >
                     {placingOrder ? (
                       <>
@@ -213,7 +213,7 @@ const OrderPage = () => {
                     </div>
                     <div className='flex justify-between items-center pt-2'>
                       <span className='text-lg font-bold text-gray-900'>Grand Total</span>
-                      <span className='text-2xl font-bold text-blue-600'>₹{totalPrice}</span>
+                      <span className='text-2xl font-bold text-primary'>₹{totalPrice}</span>
                     </div>
                   </div>
 
@@ -237,7 +237,7 @@ const OrderPage = () => {
                     type='button'
                     onClick={handleSubmit}
                     disabled={placingOrder}
-                    className='hidden lg:flex w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed items-center justify-center gap-2 shadow-lg shadow-blue-200'
+                    className='hidden lg:flex w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white font-semibold py-4 px-6 rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed items-center justify-center gap-2 shadow-lg shadow-accent/30'
                   >
                     {placingOrder ? (
                       <>
@@ -254,7 +254,7 @@ const OrderPage = () => {
                 </div>
 
                 {/* Security Badge */}
-                <div className='hidden lg:block bg-gray-50 rounded-xl border border-gray-200 p-4'>
+                <div className='hidden lg:block bg-warm rounded-xl border border-gray-200 p-4'>
                   <div className='flex items-start gap-3'>
                     <div className='w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0'>
                       <svg className='w-4 h-4 text-green-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
