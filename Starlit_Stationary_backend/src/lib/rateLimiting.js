@@ -24,7 +24,14 @@ export const adminLimiter = createLimiter("limit:admin", 20, "1 m")
 export const otpLimiter = createLimiter("limit:otp", 5, "1 m")
 
 export const withRateLimit = (limiter) => async (req, res, next) => {
-  const { success } = await limiter.limit(req.ip || "anonymous")
-  if (!success) return res.status(429).json({ message: "Rate limit exceeded" })
-  next()
+  try {
+    const { success } = await limiter.limit(req.ip || "anonymous");
+    if (!success) {
+      return res.status(429).json({ message: "Rate limit exceeded" });
+    }
+    next();
+  } catch (error) {
+    console.error("Rate Limiter Error:", error);
+    next(); 
+  }
 }
