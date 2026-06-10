@@ -27,14 +27,14 @@ const NewProduct = () => {
     }
   }
   const validateForm = () =>{
-    if(!product.name.trim()) return toast.error("Name is required")
-    if(!product.price) return toast.error("Price is required")
-    if(!product.stock) return toast.error("Stock is required")
-    if(!product.category.trim()) return toast.error("Category is required")
-    if (isNaN(product.price)) return toast.error("Price should be a number");
-    if (isNaN(product.stock)) return toast.error("Stock should be a number");
-    if(product.price>10000) return toast.error("The price should be less than 10000")
-    if(!product.featured.trim()) return toast.error("Featured is required")
+    if(!product.name.trim()) return toast.error("📝 Please enter a product name")
+    if(!product.price) return toast.error("💰 Please set a price for the product")
+    if(!product.stock) return toast.error("📦 Please enter the stock quantity")
+    if(!product.category.trim()) return toast.error("🏷️ Please select a product category")
+    if (isNaN(product.price)) return toast.error("💰 Price must be a valid number");
+    if (isNaN(product.stock)) return toast.error("📦 Stock must be a valid number");
+    if(product.price>10000) return toast.error("💰 Price cannot exceed ₹10,000")
+    if(!product.featured.trim()) return toast.error("⭐ Please select whether this product is featured")
     return true
   }
   const handleSubmit=(e)=>{

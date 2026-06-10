@@ -15,7 +15,7 @@ const YourOrderPage = () => {
   }, [getUserOrder]);
 
   const handleCancelOrder = async (id, why) => {
-    if (!why.trim()) return toast.error("Reason of cancelling order is required")
+    if (!why.trim()) return toast.error("📋 Please provide a reason for cancelling this order")
     await cancelOrder(id, why)
     setcancelId(null)
   }

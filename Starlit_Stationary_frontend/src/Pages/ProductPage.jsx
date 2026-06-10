@@ -202,8 +202,8 @@ const ProductPage = () => {
                   <Search className='absolute left-4 top-1/2 -translate-y-1/2 text-gray-400' size={20} />
                   <input 
                     type="text" 
-                    placeholder={searchingProduct ? "Searching..." : "Search for products..."} 
-                    value={searchingProduct ? "" : searchQuery} 
+                    placeholder="Search for products..." 
+                    value={searchQuery} 
                     onChange={handleSearchChange} 
                     className='w-full rounded-xl py-3 pl-12 pr-4 shadow-md border-2 border-transparent focus:border-accent focus:outline-none transition-all bg-white text-primary'
                   />

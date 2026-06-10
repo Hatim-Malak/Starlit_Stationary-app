@@ -27,7 +27,7 @@ export const useIsAdmin = create((set,get)=>({
         try {
             const res = await axiosInstance.post("admin/Products",data)
             set({Products:res.data})
-            toast.success("New Product Added")
+            toast.success("🌟 New product has been added to the catalog!")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
@@ -39,7 +39,7 @@ export const useIsAdmin = create((set,get)=>({
         try {
             const res = await axiosInstance.put(`admin/Products/${productId}`,data)
             set({updatedProduct:res.data})
-            toast.success("Product Updated")
+            toast.success("✅ Product details updated successfully!")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
@@ -50,7 +50,7 @@ export const useIsAdmin = create((set,get)=>({
         set({removingProduct:true})
         try {
             const res = await axiosInstance.delete(`admin/${id}`)
-            toast.success("Product is removed")
+            toast.success("🗑️ Product has been removed from the catalog")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{

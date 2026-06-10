@@ -26,7 +26,7 @@ export const useCart = create((set,get)=>({
         set({addingToCart:true})
         try {
             const res = await axiosInstance.post("Cart/add",data)
-            toast.success("Added to cart")        
+            toast.success("🛒 Item added to your cart!")        
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
@@ -47,7 +47,7 @@ export const useCart = create((set,get)=>({
     updateCart:async(itemId,data)=>{
         try {
             const res = await axiosInstance.put(`Cart/update/${itemId}`,data)
-            toast.success("Cart Updated")
+            toast.success("✅ Cart quantity updated successfully")
             set((state) => {
                 const updatedItems = state.Cart.items.map((item) =>
                   item._id === itemId ? { ...item, quantity: data.quantity } : item
@@ -64,7 +64,7 @@ export const useCart = create((set,get)=>({
     removeCart:async(itemId)=>{
         try {
             const res = await axiosInstance.delete(`Cart/remove/${itemId}`)
-            toast.success("item removed")
+            toast.success("🗑️ Item removed from your cart")
         } catch (error) {
             toast.error(error.response.data.message)
         }

@@ -17,10 +17,10 @@ const SignInPage = () => {
   })
   
   const validateForm = () =>{
-    if(!formData.email.trim()) return toast.error("Email is required")
-    if(!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("Invalid email Format")
-    if(!formData.password.trim()) return toast.error("password is required")
-    if(formData.password.length<6) return toast.error("Password must be at least of 6 characters")
+    if(!formData.email.trim()) return toast.error("📧 Please enter your email address")
+    if(!/\S+@\S+\.\S+/.test(formData.email)) return toast.error("📧 Please enter a valid email address")
+    if(!formData.password.trim()) return toast.error("🔒 Please enter your password")
+    if(formData.password.length<6) return toast.error("🔒 Password must be at least 6 characters long")
     return true;
   }
   

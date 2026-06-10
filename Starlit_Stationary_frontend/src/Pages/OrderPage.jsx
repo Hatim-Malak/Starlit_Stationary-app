@@ -28,23 +28,23 @@ const OrderPage = () => {
 
   const ValidateForm = () => {
     if (!shippingAddress.fullName.trim()) {
-      toast.error("fullName is required")
+      toast.error("📝 Please enter your full name for delivery")
       return false
     }
     if (!shippingAddress.address.trim()) {
-      toast.error("Address is required")
+      toast.error("📍 Please provide a delivery address")
       return false
     }
     if (!/^[6-9]\d{9}$/.test(shippingAddress.mobileNumber)) {
-      toast.error("Invalid mobile Number")
+      toast.error("📱 Please enter a valid 10-digit mobile number starting with 6-9")
       return false
     }
     if (shippingAddress.mobileNumber.length < 10) {
-      toast.error("A valid mobile Number is required")
+      toast.error("📱 Mobile number must be exactly 10 digits")
       return false
     }
     if (!shippingAddress.postalCode.trim()) {
-      toast.error("PostalCode is required")
+      toast.error("📮 Please enter your area postal code")
       return false
     }
     return true;
@@ -59,7 +59,7 @@ const OrderPage = () => {
         quantity: item.quantity
       }))
     if (items.length === 0) {
-      return toast.error("Your cart has no valid products. Some items may have been removed.")
+      return toast.error("⚠️ Your cart has no valid products. Some items may have been removed")
     }
     if (!ValidateForm()) return
     const data = { items, shippingAddress, totalPrice }

@@ -24,7 +24,7 @@ export const useAuth = create((set,get)=>({
         try {
             const res = await axiosInstance.post("/auth/signup",data)
             set({authUser:res.data})
-            toast.success("Account created succesfully")
+            toast.success("🎉 Welcome aboard! Your account has been created successfully")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
@@ -36,7 +36,7 @@ export const useAuth = create((set,get)=>({
         try {
             const res = await axiosInstance.post("/auth/login",data)
             set({authUser:res.data})
-            toast.success("logged In successfully")
+            toast.success("👋 Welcome back! You're now signed in")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
@@ -47,7 +47,7 @@ export const useAuth = create((set,get)=>({
         try {
             await axiosInstance.post("/auth/logout")
             set({authUser:null})
-            toast.success("Logged out successfully")
+            toast.success("👋 You've been logged out. See you soon!")
         } catch (error) {
             toast.error(error.response.data.message)
         }

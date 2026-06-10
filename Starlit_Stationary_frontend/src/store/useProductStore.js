@@ -60,9 +60,8 @@ export const useProduct = create((set,get)=>({
                     currentPage: res.data.page || page 
                 })
             }
-            toast.success("Product found")    
         } catch (error) {
-            toast.error(error.response?.data?.message || "Search failed")
+            toast.error(error.response?.data?.message || "❌ Couldn't find products. Please try a different search")
         }finally{
             set({searchingProduct:false})
         }
@@ -83,9 +82,8 @@ export const useProduct = create((set,get)=>({
                     currentPage: res.data.page || page 
                 })
             }
-            toast.success("Product found")
         } catch (error) {
-            toast.error(error.response?.data?.message || "Failed to fetch category")
+            toast.error(error.response?.data?.message || "❌ Failed to load category products. Please try again")
         }finally{
             set({gettingCategoryProduct:false})
         }
