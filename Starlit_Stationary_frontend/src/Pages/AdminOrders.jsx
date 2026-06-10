@@ -38,8 +38,13 @@ const AdminOrders = () => {
 
       if (newOtp.every((digit) => digit !== "")) {
         const otpValue = newOtp.join("");
-        await verifyOTP(orderId, otpValue);
-        await getAllOrders("all")
+        const success = await verifyOTP(orderId, otpValue);
+        if (success) {
+          await getAllOrders(status);
+        } else {
+          setOtp({ ...otp, [orderId]: new Array(6).fill("") });
+          inputRefs.current[orderId]?.[0]?.focus();
+        }
       }
     };
     const handleKeyDown =(e,index,orderId)=>{
@@ -541,11 +546,60 @@ const AdminOrders = () => {
 
                       if (isLoading) {
                         return (
-                          <div className='flex justify-center items-center h-full w-full'>
-                            <div className='flex flex-col items-center gap-4'>
-                              <Loader className="w-12 h-12 animate-spin text-primary" />
-                              <p className='text-primary font-medium'>Loading orders...</p>
-                            </div>
+                          <div className='space-y-6'>
+                            {[...Array(3)].map((_, i) => (
+                              <div key={i} className='bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden w-full animate-pulse'>
+                                <div className='p-6'>
+                                  {/* Header */}
+                                  <div className='flex items-center gap-2 mb-6 pb-4 border-b-2 border-gray-100'>
+                                    <div className='w-9 h-9 bg-gray-200 rounded-lg'></div>
+                                    <div className='h-8 bg-gray-200 rounded w-40'></div>
+                                  </div>
+                                  
+                                  {/* Shipping Info */}
+                                  <div className='bg-gray-50 rounded-xl p-4 mb-6 space-y-3'>
+                                    <div className='h-5 bg-gray-200 rounded w-48 mb-3'></div>
+                                    <div className='grid grid-cols-1 md:grid-cols-2 gap-3'>
+                                      {[...Array(4)].map((_, idx) => (
+                                        <div key={idx} className={`flex items-center gap-2 ${idx === 2 ? 'md:col-span-2' : ''}`}>
+                                          <div className='w-4 h-4 bg-gray-200 rounded-full flex-shrink-0'></div>
+                                          <div className='h-4 bg-gray-200 rounded w-16'></div>
+                                          <div className='h-4 bg-gray-200 rounded w-32'></div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  {/* Products Table */}
+                                  <div className='mb-6'>
+                                    <div className='h-5 bg-gray-200 rounded w-32 mb-3'></div>
+                                    <div className='border-2 border-gray-100 rounded-xl overflow-hidden'>
+                                      <div className='h-12 bg-gray-200'></div>
+                                      <div className='p-3 space-y-4 py-4'>
+                                        {[...Array(2)].map((_, idx) => (
+                                          <div key={idx} className='flex justify-between items-center px-3'>
+                                            <div className='h-4 bg-gray-200 rounded w-1/3'></div>
+                                            <div className='h-4 bg-gray-200 rounded w-1/6'></div>
+                                            <div className='h-4 bg-gray-200 rounded w-1/6'></div>
+                                            <div className='h-4 bg-gray-200 rounded w-1/6'></div>
+                                          </div>
+                                        ))}
+                                      </div>
+                                      <div className='h-16 bg-gray-200 border-t-2 border-gray-100'></div>
+                                    </div>
+                                  </div>
+
+                                  {/* OTP and Status */}
+                                  <div className='h-20 bg-gray-200 rounded-xl mb-6'></div>
+                                  <div className='flex gap-4 mb-6'>
+                                    <div className='h-14 bg-gray-200 rounded-xl flex-1'></div>
+                                    <div className='h-14 bg-gray-200 rounded-xl flex-1'></div>
+                                  </div>
+                                  {/* Cancel Button */}
+                                  <div className='h-14 bg-gray-200 rounded-xl w-full'></div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         );
                       }

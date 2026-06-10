@@ -18,8 +18,10 @@ export const useOrderStore = create((set,get)=>({
         try {
             const res = await axiosInstance.post("order",data)
             toast.success("Order is placed")
+            return true;
         } catch (error) {
             toast.error(error.response.data.message)
+            return false;
         }finally{
             set({placingOrder:false})
         }
@@ -64,8 +66,36 @@ export const useOrderStore = create((set,get)=>({
         try {
             const res = await axiosInstance.post(`order/customer/${id}/otp/verify`,{deliveryOTP})
             toast.success("Order is verified")
+            set((state) => ({
+                orders: state.orders.map(order => 
+                    order._id === id ? { 
+                        ...order, 
+                        isDelivered: true, 
+                        isPaid: true, 
+                        deliveryOTP: { ...order.deliveryOTP, verified: true } 
+                    } : order
+                ),
+                allOrders: state.allOrders.map(order => 
+                    order._id === id ? { 
+                        ...order, 
+                        isDelivered: true, 
+                        isPaid: true, 
+                        deliveryOTP: { ...order.deliveryOTP, verified: true } 
+                    } : order
+                ),
+                specificOrders: state.specificOrders.map(order => 
+                    order._id === id ? { 
+                        ...order, 
+                        isDelivered: true, 
+                        isPaid: true, 
+                        deliveryOTP: { ...order.deliveryOTP, verified: true } 
+                    } : order
+                )
+            }))
+            return true;
         } catch (error) {
             toast.error(error.response.data.message)
+            return false;
         }finally{
             set({verifyingOTP:false})
         }
@@ -74,8 +104,21 @@ export const useOrderStore = create((set,get)=>({
         set({cancellingOrder:true})
         try {
             const res = await axiosInstance.delete(`order/${id}/delete`,{ data: { why } })
+            set((state) => ({
+                orders: state.orders.map(order => 
+                    order._id === id ? { ...order, isOrderCanceled: { isTrue: true, why } } : order
+                ),
+                allOrders: state.allOrders.map(order => 
+                    order._id === id ? { ...order, isOrderCanceled: { isTrue: true, why } } : order
+                ),
+                specificOrders: state.specificOrders.map(order => 
+                    order._id === id ? { ...order, isOrderCanceled: { isTrue: true, why } } : order
+                )
+            }))
+            return true;
         } catch (error) {
             toast.error(error.response.data.message)
+            return false;
         }finally{
             set({cancellingOrder:false})
         }

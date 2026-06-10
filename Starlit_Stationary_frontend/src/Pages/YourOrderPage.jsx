@@ -33,11 +33,64 @@ const YourOrderPage = () => {
 
           {/* Loading State */}
           {gettingOrder && (
-            <div className='flex justify-center items-center h-64'>
-              <div className='text-center'>
-                <Loader className="w-12 h-12 animate-spin text-white mx-auto mb-4" />
-                <p className='text-accent'>Loading your orders...</p>
-              </div>
+            <div className='space-y-6'>
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className='bg-white rounded-xl shadow-xl border-2 border-gray-100 overflow-hidden animate-pulse'>
+                  <div className='p-6'>
+                    {/* Header */}
+                    <div className='flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b-2 border-gray-100 gap-4'>
+                      <div className='flex items-center gap-3'>
+                        <div className='w-12 h-12 bg-gray-200 rounded-full flex-shrink-0'></div>
+                        <div className='flex flex-col gap-2'>
+                          <div className='h-6 bg-gray-200 rounded w-32'></div>
+                          <div className='h-4 bg-gray-200 rounded w-24'></div>
+                        </div>
+                      </div>
+                      <div className='flex gap-2'>
+                        <div className='h-8 w-20 bg-gray-200 rounded-full'></div>
+                        <div className='h-8 w-24 bg-gray-200 rounded-full'></div>
+                      </div>
+                    </div>
+                    {/* Shipping Info */}
+                    <div className='mb-6'>
+                      <div className='h-6 bg-gray-200 rounded w-48 mb-4'></div>
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 rounded-lg p-4 border border-gray-100'>
+                        {[...Array(4)].map((_, idx) => (
+                          <div key={idx} className='flex items-start gap-3'>
+                            <div className='w-8 h-8 bg-gray-200 rounded-full flex-shrink-0'></div>
+                            <div className='flex-1 flex flex-col gap-2 mt-1'>
+                              <div className='h-3 bg-gray-200 rounded w-20'></div>
+                              <div className='h-4 bg-gray-200 rounded w-32'></div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    {/* Products Table */}
+                    <div className='mb-6'>
+                      <div className='h-6 bg-gray-200 rounded w-32 mb-4'></div>
+                      <div className='border-2 border-gray-100 rounded-lg overflow-hidden'>
+                        <div className='h-10 bg-gray-200'></div>
+                        <div className='p-4 space-y-4'>
+                          {[...Array(2)].map((_, idx) => (
+                            <div key={idx} className='flex justify-between items-center'>
+                              <div className='h-4 bg-gray-200 rounded w-1/3'></div>
+                              <div className='h-4 bg-gray-200 rounded w-1/6'></div>
+                              <div className='h-4 bg-gray-200 rounded w-1/6'></div>
+                              <div className='h-4 bg-gray-200 rounded w-1/6'></div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className='h-14 bg-gray-200 border-t-2 border-gray-100'></div>
+                      </div>
+                    </div>
+                    {/* Verification OTP */}
+                    <div className='h-20 bg-gray-200 rounded-lg mb-6'></div>
+                    {/* Cancel Button */}
+                    <div className='h-12 w-full bg-gray-200 rounded-lg'></div>
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 

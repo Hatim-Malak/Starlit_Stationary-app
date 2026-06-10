@@ -7,7 +7,7 @@ import { Loader2, Search, LayoutList, Camera, Trash2, Package, DollarSign, Layer
 import { useIsAdmin } from '../store/useIsAdminStore.js'
 
 const UpdateProduct = () => {
-  const { searchedProduct, searchingProduct, searchProduct, getProduct, product } = useProduct()
+  const { searchedProduct, searchingProduct, searchProduct, getProduct, product, gettingProduct } = useProduct()
   const [searchQuery, setsearchQuery] = useState("")
   const [id, setid] = useState("")
   const [view, setview] = useState("all")
@@ -65,7 +65,21 @@ const UpdateProduct = () => {
   }
 
   let content
-  if (view === "search") {
+  if (searchingProduct || gettingProduct) {
+    content = [...Array(5)].map((_, i) => (
+      <div key={i} className='flex gap-1 sm:gap-2 p-1 sm:p-2 rounded-lg animate-pulse'>
+        <div className='flex-1 min-w-0 flex gap-2 sm:gap-3 items-center overflow-hidden'>
+          <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-white/20 flex-shrink-0'></div>
+          <div className='flex flex-col items-start flex-1 min-w-0 gap-2'>
+            <div className='h-4 bg-white/20 rounded w-3/4'></div>
+            <div className='h-3 bg-white/20 rounded w-1/2'></div>
+          </div>
+        </div>
+        <div className='w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white/20 flex-shrink-0'></div>
+      </div>
+    ))
+  }
+  else if (view === "search") {
     if (!searchedProduct || searchedProduct.length === 0) {
       content = (
         <div className='p-4 text-center text-accent text-sm'>

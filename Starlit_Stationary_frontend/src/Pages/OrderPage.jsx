@@ -52,10 +52,15 @@ const OrderPage = () => {
 
   const handleSubmit = async () => {
     const id = Cart._id
-    const items = Cart.items.map(item => ({
-      product: item.product,
-      quantity: item.quantity
-    }))
+    const items = Cart.items
+      .filter(item => item.product && item.product._id)
+      .map(item => ({
+        product: item.product._id,
+        quantity: item.quantity
+      }))
+    if (items.length === 0) {
+      return toast.error("Your cart has no valid products. Some items may have been removed.")
+    }
     if (!ValidateForm()) return
     const data = { items, shippingAddress, totalPrice }
     const success = await placeOrder(data)
@@ -66,7 +71,7 @@ const OrderPage = () => {
   }
 
   if (orderSuccess) {
-    return <Navigate to='/' />;
+    return <Navigate to='/yourorder' />;
   }
 
   return (

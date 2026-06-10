@@ -304,10 +304,31 @@ const ProductPage = () => {
 
               if (isLoading) {
                 return (
-                  <div className='flex flex-col justify-center items-center h-[400px] w-full col-span-full gap-4'>
-                    <Loader className="size-12 animate-spin text-primary" />
-                    <p className='text-secondary font-medium'>Loading products...</p>
-                  </div>
+                  <>
+                    {[...Array(10)].map((_, i) => (
+                      <div key={i} className='flex flex-col h-[340px] lg:h-[380px] w-full justify-between rounded-3xl bg-white shadow-xl border border-warm/40 overflow-hidden animate-pulse'>
+                        {/* Skeleton Image Area */}
+                        <div className='relative w-full p-4 h-[180px] lg:h-[200px]'>
+                          <div className='w-full h-full rounded-2xl bg-gray-200'></div>
+                        </div>
+                        {/* Skeleton Product Info */}
+                        <div className='w-full flex flex-col justify-end px-5 pb-5 gap-3'>
+                          <div className='flex flex-col gap-2'>
+                            {/* Title */}
+                            <div className='h-5 bg-gray-200 rounded w-3/4'></div>
+                            <div className='flex items-center justify-between'>
+                              {/* Price */}
+                              <div className='h-6 bg-gray-200 rounded w-1/3'></div>
+                              {/* View Details Link */}
+                              <div className='h-3 bg-gray-200 rounded w-1/4'></div>
+                            </div>
+                          </div>
+                          {/* Add to Cart Button */}
+                          <div className='h-11 rounded-xl bg-gray-200 w-full mt-1 lg:mt-2'></div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
                 );
               }
 

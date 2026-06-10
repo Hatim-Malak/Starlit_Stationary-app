@@ -21,7 +21,7 @@ export const placeOrder = async (req,res) =>{
       totalPrice,
     })
     await order.save()
-    await delCache(`order:my:${req.user._id}`, "orders:all:pending", "orders:all:delivered")
+    await delCache(`order:my:${req.user._id}`, "orders:all:pending", "orders:all:delivered", "orders:all:all")
     res.status(200).json({message:"Your order placed successfully"})
   } catch (error) {
     console.log("error in placeOrder controller",error)
@@ -109,7 +109,7 @@ export const verifyOTP = async (req,res)=>{
     order.isPaid = true
     order.paidAt = Date.now()
     await order.save()
-    await delCache(`order:my:${order.user}`, "orders:all:pending", "orders:all:delivered", `order:customer:${order.shippingAddress.fullName}`)
+    await delCache(`order:my:${order.user}`, "orders:all:pending", "orders:all:delivered", "orders:all:all", `order:customer:${order.shippingAddress.fullName}`)
     res.status(200).json({message:"order delivered and verified successfully"})
   } catch (error) {
     console.log("error in verify otp controller",error)
@@ -135,7 +135,7 @@ export const cancelOrder = async(req,res)=>{
     order.isOrderCanceled.isTrue = true
     order.isOrderCanceled.why = why
     await order.save()
-    await delCache(`order:my:${order.user}`, "orders:all:pending", "orders:all:delivered", `order:customer:${order.shippingAddress.fullName}`)
+    await delCache(`order:my:${order.user}`, "orders:all:pending", "orders:all:delivered", "orders:all:all", `order:customer:${order.shippingAddress.fullName}`)
     res.status(200).json({message:"Order canceled"})
   } catch (error) {
     console.log("error in cancelOrder controller",error)

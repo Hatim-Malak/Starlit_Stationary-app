@@ -76,7 +76,63 @@ const CartPage = () => {
 
                 {/* Cart Items */}
                 <div className='divide-y divide-gray-200'>
-                  {Cart?.items?.length === 0 || !Cart?.items ? (
+                  {gettingCart ? (
+                    <div className='py-6 space-y-6'>
+                      {[...Array(3)].map((_, i) => (
+                        <div key={i} className='w-full animate-pulse border-b border-gray-100 pb-6 last:border-0'>
+                          {/* Desktop Layout */}
+                          <div className='hidden md:grid md:grid-cols-12 gap-4 items-center'>
+                            <div className='col-span-5 flex items-center gap-4'>
+                              <div className='w-20 h-20 flex-shrink-0 bg-gray-200 rounded-lg'></div>
+                              <div className='flex-1'>
+                                <div className='h-4 bg-gray-200 rounded w-3/4 mb-2'></div>
+                                <div className='h-3 bg-gray-200 rounded w-1/4'></div>
+                              </div>
+                            </div>
+                            <div className='col-span-2 flex justify-center'>
+                              <div className='h-4 bg-gray-200 rounded w-16'></div>
+                            </div>
+                            <div className='col-span-2 flex justify-center'>
+                              <div className='h-10 bg-gray-200 rounded w-28'></div>
+                            </div>
+                            <div className='col-span-2 flex justify-center'>
+                              <div className='h-4 bg-gray-200 rounded w-16'></div>
+                            </div>
+                            <div className='col-span-1 flex justify-center'>
+                              <div className='w-8 h-8 bg-gray-200 rounded-md'></div>
+                            </div>
+                          </div>
+                          {/* Mobile Layout */}
+                          <div className='md:hidden'>
+                            <div className='flex gap-4 mb-4'>
+                              <div className='w-20 h-20 flex-shrink-0 bg-gray-200 rounded-lg'></div>
+                              <div className='flex-1'>
+                                <div className='flex justify-between items-start mb-2'>
+                                  <div className='h-4 bg-gray-200 rounded w-1/2'></div>
+                                  <div className='w-8 h-8 bg-gray-200 rounded-md'></div>
+                                </div>
+                                <div className='h-3 bg-gray-200 rounded w-1/4'></div>
+                              </div>
+                            </div>
+                            <div className='space-y-3'>
+                              <div className='flex justify-between items-center'>
+                                <div className='h-4 bg-gray-200 rounded w-12'></div>
+                                <div className='h-4 bg-gray-200 rounded w-16'></div>
+                              </div>
+                              <div className='flex justify-between items-center'>
+                                <div className='h-4 bg-gray-200 rounded w-16'></div>
+                                <div className='h-10 bg-gray-200 rounded w-28'></div>
+                              </div>
+                              <div className='flex justify-between items-center'>
+                                <div className='h-4 bg-gray-200 rounded w-12'></div>
+                                <div className='h-4 bg-gray-200 rounded w-16'></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : Cart?.items?.length === 0 || !Cart?.items ? (
                     <div className='flex flex-col items-center justify-center py-16'>
                       <div className='w-20 h-20 bg-warm-100 rounded-full flex items-center justify-center mb-4'>
                         <ShoppingBag className='w-10 h-10 text-primary' />

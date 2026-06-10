@@ -32,14 +32,8 @@ const App = () => {
     }
   }, [authUser]);
 
-  if((isCheckingAuth&&!authUser)&&(isCheckingAdmin&&!authAdmin)){
-    return(
-      <div className='flex justify-center items-center h-screen bg-gradient-to-br from-warm to-warm-100'>
-        <div className='p-4 rounded-full bg-white/50 shadow-sm animate-pulse'>
-          <Loader className="size-10 animate-spin text-primary" />
-        </div>
-      </div>
-    )
+  if(isCheckingAuth){
+    return null;
   }
   return (
     <div className='h-full w-full'>

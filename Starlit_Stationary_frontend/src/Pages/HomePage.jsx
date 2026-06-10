@@ -213,11 +213,28 @@ const HomePage = () => {
 
   if (showLoader || (!featureProduct && gettingFeatureProduct)) {
     return (
-      <div className='w-screen h-screen flex flex-col justify-center items-center bg-gradient-to-br from-warm to-warm-100'>
-        <div className='p-4 rounded-full bg-white/50 shadow-sm mb-4 animate-pulse'>
-          <Loader2 className='w-[60px] h-[60px] animate-spin text-primary' />
+      <div className='min-h-screen flex flex-col bg-gradient-to-br from-primary via-secondary to-primary'>
+        <Navbar />
+        <div className='flex-1 flex flex-col'>
+          <div className='relative w-full py-12 lg:py-16'>
+            <div className='relative container mx-auto px-4 flex flex-col items-center gap-6 lg:gap-8 text-center z-10'>
+              <div className='w-48 h-8 bg-white/20 rounded-full animate-pulse'></div>
+              <div className='w-full max-w-2xl h-16 md:h-24 bg-white/20 rounded-2xl animate-pulse'></div>
+              <div className='w-full max-w-lg h-8 bg-white/20 rounded-xl animate-pulse'></div>
+              <div className='w-40 h-14 bg-white/20 rounded-full animate-pulse mt-4'></div>
+            </div>
+          </div>
+          <div className='flex-1 flex items-center justify-center px-4 pb-8'>
+            <div className='w-full max-w-[1400px] bg-warm/95 rounded-3xl shadow-2xl overflow-hidden'>
+               <div className='h-24 bg-gray-300 animate-pulse'></div>
+               <div className='flex gap-6 lg:gap-8 p-8 overflow-hidden'>
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className='min-w-[250px] h-[380px] bg-gray-200 rounded-3xl animate-pulse'></div>
+                  ))}
+               </div>
+            </div>
+          </div>
         </div>
-        <p className='text-secondary font-medium'>Loading amazing products...</p>
       </div>
     );
   }
