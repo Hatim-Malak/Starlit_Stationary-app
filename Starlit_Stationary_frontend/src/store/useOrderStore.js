@@ -17,7 +17,7 @@ export const useOrderStore = create((set,get)=>({
         set({placingOrder:true})
         try {
             const res = await axiosInstance.post("order",data)
-            toast.success("🎉 Order placed successfully! Check your email for details")
+            toast.success("Order placed successfully")
             return true;
         } catch (error) {
             toast.error(error.response.data.message)
@@ -65,7 +65,7 @@ export const useOrderStore = create((set,get)=>({
         set({verifyingOTP:true})
         try {
             const res = await axiosInstance.post(`order/customer/${id}/otp/verify`,{deliveryOTP})
-            toast.success("✅ Delivery verified! Order marked as delivered & paid")
+            toast.success("Delivery verified successfully")
             set((state) => ({
                 orders: state.orders.map(order => 
                     order._id === id ? { 

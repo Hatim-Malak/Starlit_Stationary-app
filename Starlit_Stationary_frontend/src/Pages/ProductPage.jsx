@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import {useProduct} from "../store/useProductStore.js"
 import Navbar from "../Components/Navbar.jsx"
-import {Loader, SearchX, Search, Filter, ShoppingBag, Star, Package, X, ChevronLeft, ChevronRight} from "lucide-react"
+import {Loader2, SearchX, Search, Filter, ShoppingBag, Star, Package, X, ChevronLeft, ChevronRight} from "lucide-react"
 import {useCart} from "../store/useCartStore.js"
 import { usePagination } from "../Hooks/usePagination.js"
 import { useDebounce } from "../Hooks/useDebounce.js"
@@ -12,7 +12,7 @@ const ProductPage = () => {
   const [category, setcategory] = useState("")
   const [view,setview] = useState("all")
   const [quantities, setQuantities] = useState({});
-  const {addToCart,addingToCart} = useCart()
+  const {addToCart,addingProductId} = useCart()
   const [openDescriptions, setOpenDescriptions] = useState({});
   
   const pagination = usePagination({ initialPage: 1, initialLimit: 12 });
@@ -92,7 +92,9 @@ const ProductPage = () => {
   }
 
   // Product Card Component to avoid repetition
-  const ProductCard = ({ productData }) => (
+  const ProductCard = ({ productData }) => {
+    const isAdding = addingProductId === productData._id;
+    return (
     <div className='group relative flex flex-col h-[340px] lg:h-[380px] w-full justify-between rounded-3xl bg-white shadow-xl border border-warm/40 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2'>
       {openDescriptions[productData._id] ? (
         <div className='relative w-full h-full flex flex-col p-5 bg-gradient-to-br from-warm-50 to-warm'>
@@ -143,29 +145,36 @@ const ProductPage = () => {
             </div>
 
             {/* Add to Cart Button */}
-            <div className='flex items-center gap-2 p-2.5 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-md hover:shadow-lg transition-all duration-300 hover:from-secondary hover:to-primary mt-1 lg:mt-2'>
-              {(!quantities[productData._id] || quantities[productData._id] === 0) ? (
+            <div className={`flex items-center gap-2 p-2.5 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-md transition-all duration-300 mt-1 lg:mt-2 ${isAdding ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:from-secondary hover:to-primary'}`}>
+              {isAdding ? (
+                <div className='p-1 bg-white/20 rounded-lg'>
+                  <Loader2 className='text-warm animate-spin' size={18} />
+                </div>
+              ) : (!quantities[productData._id] || quantities[productData._id] === 0) ? (
                 <div className='p-1 bg-white/20 rounded-lg'>
                   <ShoppingBag className='text-warm' size={18} />
                 </div>
               ) : (
                 <button 
+                  disabled={isAdding}
                   onClick={() => handleQuantityChange(productData._id, -1)}
-                  className='hover:bg-white/20 rounded-lg p-1 transition-colors'
+                  className='hover:bg-white/20 rounded-lg p-1 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   <img src="/minus.svg" className='size-[18px] filter invert brightness-0' alt="minus" />
                 </button>
               )}
               <button
+                disabled={isAdding}
                 onClick={(!quantities[productData._id] || quantities[productData._id] === 0) ? () => handleQuantityChange(productData._id, 1) : () => handleCartSubmit(productData)}
-                className='flex-1 text-warm text-sm font-bold tracking-wide'
+                className='flex-1 text-warm text-sm font-bold tracking-wide disabled:cursor-not-allowed'
               >
-                {quantities[productData._id] > 0 ? `Add ${quantities[productData._id]}` : `Add to Cart`}
+                {isAdding ? 'Adding...' : quantities[productData._id] > 0 ? `Add ${quantities[productData._id]}` : `Add to Cart`}
               </button>
-              {quantities[productData._id] > 0 && (
+              {quantities[productData._id] > 0 && !isAdding && (
                 <button 
+                  disabled={isAdding}
                   onClick={() => handleQuantityChange(productData._id, 1)}
-                  className='hover:bg-white/20 rounded-lg p-1 transition-colors'
+                  className='hover:bg-white/20 rounded-lg p-1 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                 >
                   <img src="/plus.svg" className='size-[18px] filter invert brightness-0' alt="plus" />
                 </button>
@@ -175,7 +184,8 @@ const ProductPage = () => {
         </>
       )}
     </div>
-  );
+    );
+  };
 
   // Removed premature content evaluation to avoid crashes
 

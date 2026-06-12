@@ -20,17 +20,19 @@ export const useTotalPriceStore = create(
 export const useCart = create((set,get)=>({
     Cart: { items: [] },
     gettingCart:false,
-    addingToCart:false,
+    addingProductId:null,
+    updatingItemId:null,
+    removingItemId:null,
 
     addToCart:async(data)=>{
-        set({addingToCart:true})
+        set({addingProductId:data.productId})
         try {
             const res = await axiosInstance.post("Cart/add",data)
-            toast.success("🛒 Item added to your cart!")        
+            toast.success("Item added to cart")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
-            set({addingToCart:false})
+            set({addingProductId:null})
         }
     },
     getCart:async()=>{
@@ -45,9 +47,10 @@ export const useCart = create((set,get)=>({
         }
     },
     updateCart:async(itemId,data)=>{
+        set({updatingItemId:itemId})
         try {
             const res = await axiosInstance.put(`Cart/update/${itemId}`,data)
-            toast.success("✅ Cart quantity updated successfully")
+            toast.success("Cart updated successfully")
             set((state) => {
                 const updatedItems = state.Cart.items.map((item) =>
                   item._id === itemId ? { ...item, quantity: data.quantity } : item
@@ -59,14 +62,19 @@ export const useCart = create((set,get)=>({
 
         }catch (error) {
             toast.error(error.response.data.message)
+        }finally{
+            set({updatingItemId:null})
         }
     },
     removeCart:async(itemId)=>{
+        set({removingItemId:itemId})
         try {
             const res = await axiosInstance.delete(`Cart/remove/${itemId}`)
-            toast.success("🗑️ Item removed from your cart")
+            toast.success("Item removed from cart")
         } catch (error) {
             toast.error(error.response.data.message)
+        }finally{
+            set({removingItemId:null})
         }
     },
     deleteCart:async(id)=>{

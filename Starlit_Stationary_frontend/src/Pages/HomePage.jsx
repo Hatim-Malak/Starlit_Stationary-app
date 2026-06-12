@@ -28,7 +28,7 @@ const useMediaQuery = (query) => {
 };
 
 // Enhanced Carousel component with professional design
-const FeaturedProductCarousel = ({ featureProduct, quantities, handleQuantityChange, handleCartSubmit }) => {
+const FeaturedProductCarousel = ({ featureProduct, quantities, handleQuantityChange, handleCartSubmit, addingProductId }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     loop: true, 
     align: 'start',
@@ -127,29 +127,36 @@ const FeaturedProductCarousel = ({ featureProduct, quantities, handleQuantityCha
                       </div>
 
                       {/* Add to Cart Button */}
-                      <div className='flex items-center gap-2 p-2.5 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-md hover:shadow-lg transition-all duration-300 hover:from-secondary hover:to-primary mt-2'>
-                        {(!quantities[pro._id] || quantities[pro._id] === 0) ? (
+                      <div className={`flex items-center gap-2 p-2.5 rounded-xl bg-gradient-to-r from-primary to-secondary shadow-md transition-all duration-300 mt-2 ${addingProductId === pro._id ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:from-secondary hover:to-primary'}`}>
+                        {addingProductId === pro._id ? (
+                          <div className='p-1 bg-white/20 rounded-lg'>
+                            <Loader2 className='text-warm animate-spin' size={18} />
+                          </div>
+                        ) : (!quantities[pro._id] || quantities[pro._id] === 0) ? (
                           <div className='p-1 bg-white/20 rounded-lg'>
                             <ShoppingBag className='text-warm' size={18} />
                           </div>
                         ) : (
                           <button 
+                            disabled={addingProductId === pro._id}
                             onClick={() => handleQuantityChange(pro._id, -1)}
-                            className='hover:bg-white/20 rounded-lg p-1 transition-colors'
+                            className='hover:bg-white/20 rounded-lg p-1 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                           >
                             <img src="/minus.svg" className='size-[18px] filter invert brightness-0' alt="minus" />
                           </button>
                         )}
                         <button
+                          disabled={addingProductId === pro._id}
                           onClick={(!quantities[pro._id] || quantities[pro._id] === 0) ? () => handleQuantityChange(pro._id, 1) : () => handleCartSubmit(pro)}
-                          className='flex-1 text-warm text-sm font-bold tracking-wide'
+                          className='flex-1 text-warm text-sm font-bold tracking-wide disabled:cursor-not-allowed'
                         >
-                          {quantities[pro._id] > 0 ? `Add ${quantities[pro._id]}` : `Add to Cart`}
+                          {addingProductId === pro._id ? 'Adding...' : quantities[pro._id] > 0 ? `Add ${quantities[pro._id]}` : `Add to Cart`}
                         </button>
-                        {quantities[pro._id] > 0 && (
+                        {quantities[pro._id] > 0 && addingProductId !== pro._id && (
                           <button 
+                            disabled={addingProductId === pro._id}
                             onClick={() => handleQuantityChange(pro._id, 1)}
-                            className='hover:bg-white/20 rounded-lg p-1 transition-colors'
+                            className='hover:bg-white/20 rounded-lg p-1 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                           >
                             <img src="/plus.svg" className='size-[18px] filter invert brightness-0' alt="plus" />
                           </button>
@@ -184,7 +191,7 @@ const FeaturedProductCarousel = ({ featureProduct, quantities, handleQuantityCha
 };
 
 const HomePage = () => {
-  const { addToCart } = useCart();
+  const { addToCart, addingProductId } = useCart();
   const { gettingFeatureProduct, getFeatureProduct, featureProduct } = useProduct();
   const [quantities, setQuantities] = useState({});
 
@@ -345,6 +352,7 @@ const HomePage = () => {
                     quantities={quantities}
                     handleQuantityChange={handleQuantityChange}
                     handleCartSubmit={handleCartSubmit}
+                    addingProductId={addingProductId}
                   />
                 </div>
               </div>

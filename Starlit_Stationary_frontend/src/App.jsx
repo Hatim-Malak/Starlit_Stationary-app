@@ -50,7 +50,14 @@ const App = () => {
         <Route path='/newproduct' element={authAdmin?<NewProduct/>:<Navigate to="/" />}/>
         <Route path='/updateproduct' element={authAdmin?<UpdateProduct/>:<Navigate to="/" />}/>
       </Routes>
-      <Toaster/>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          style: {
+            textAlign: 'center',
+          },
+        }}
+      />
     </div>
   )
 }

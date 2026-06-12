@@ -3,10 +3,10 @@ import Navbar from "../Components/Navbar.jsx";
 import { useEffect, useState, useMemo } from 'react';
 import { useCart, useTotalPriceStore } from '../store/useCartStore.js';
 import { Link } from 'react-router-dom'
-import { ShoppingCart, Trash2, Plus, Minus, Package, ArrowRight, ShoppingBag, Info } from 'lucide-react';
+import { ShoppingCart, Trash2, Plus, Minus, Package, ArrowRight, ShoppingBag, Info, Loader2 } from 'lucide-react';
 
 const CartPage = () => {
-  const { Cart, getCart, gettingCart, updateCart, removeCart } = useCart();
+  const { Cart, getCart, gettingCart, updateCart, removeCart, updatingItemId, removingItemId } = useCart();
   const { setTotalPrice } = useTotalPriceStore()
   const [quantities, setQuantities] = useState({});
 
@@ -151,6 +151,9 @@ const CartPage = () => {
                       const product = item.product;
                       if (!product) return null;
                       const total = product.price * (quantities[item._id] || 0);
+                      const isUpdating = updatingItemId === item._id;
+                      const isRemoving = removingItemId === item._id;
+                      const isBusy = isUpdating || isRemoving;
 
                       return (
                         <div key={product._id} className='py-6'>
@@ -189,15 +192,17 @@ const CartPage = () => {
                             <div className='col-span-2 flex justify-center'>
                               <div className='flex items-center gap-3 bg-gray-100 rounded-lg px-3 py-2'>
                                 <button
+                                  disabled={isBusy}
                                   onClick={() => handleQuantityChange(item._id, -1)}
-                                  className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300'
+                                  className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed'
                                 >
                                   <Minus className='w-4 h-4 text-gray-600' />
                                 </button>
                                 <span className='font-semibold text-gray-900 w-8 text-center'>{quantities[item._id] || 0}</span>
                                 <button
+                                  disabled={isBusy}
                                   onClick={() => handleQuantityChange(item._id, 1)}
-                                  className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300'
+                                  className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed'
                                 >
                                   <Plus className='w-4 h-4 text-gray-600' />
                                 </button>
@@ -213,23 +218,32 @@ const CartPage = () => {
                             <div className='col-span-1 flex justify-center gap-2'>
                               {quantities[item._id] !== item.quantity && (
                                 <button
-                                  className='bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-200'
+                                  disabled={isBusy}
+                                  className='bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1'
                                   onClick={async () => {
                                     await updateCart(item._id, { quantity: quantities[item._id] });
                                     getCart();
                                   }}
                                 >
-                                  Update
+                                  {isUpdating ? (
+                                    <Loader2 className='w-3 h-3 animate-spin' />
+                                  ) : null}
+                                  {isUpdating ? 'Saving' : 'Update'}
                                 </button>
                               )}
                               <button
-                                className='bg-red-500 hover:bg-red-600 p-2 rounded-md transition-colors'
+                                disabled={isBusy}
+                                className='bg-red-500 hover:bg-red-600 p-2 rounded-md transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
                                 onClick={async () => {
                                   await removeCart(item._id);
                                   await getCart();
                                 }}
                               >
-                                <Trash2 className='w-4 h-4 text-white' />
+                                {isRemoving ? (
+                                  <Loader2 className='w-4 h-4 text-white animate-spin' />
+                                ) : (
+                                  <Trash2 className='w-4 h-4 text-white' />
+                                )}
                               </button>
                             </div>
                           </div>
@@ -248,13 +262,18 @@ const CartPage = () => {
                                 <div className='flex justify-between items-start mb-2'>
                                   <h3 className='font-semibold text-gray-900 text-sm'>{product.name}</h3>
                                   <button
-                                    className='bg-red-500 hover:bg-red-600 p-2 rounded-md transition-colors ml-2'
+                                    disabled={isBusy}
+                                    className='bg-red-500 hover:bg-red-600 p-2 rounded-md transition-colors ml-2 disabled:opacity-50 disabled:cursor-not-allowed'
                                     onClick={async () => {
                                       await removeCart(item._id);
                                       await getCart();
                                     }}
                                   >
-                                    <Trash2 className='w-4 h-4 text-white' />
+                                    {isRemoving ? (
+                                      <Loader2 className='w-4 h-4 text-white animate-spin' />
+                                    ) : (
+                                      <Trash2 className='w-4 h-4 text-white' />
+                                    )}
                                   </button>
                                 </div>
                                 <div className="relative group mb-2">
@@ -280,15 +299,17 @@ const CartPage = () => {
                                 <span className='text-sm text-gray-600'>Quantity:</span>
                                 <div className='flex items-center gap-3 bg-gray-100 rounded-lg px-3 py-2'>
                                   <button
+                                    disabled={isBusy}
                                     onClick={() => handleQuantityChange(item._id, -1)}
-                                    className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300'
+                                    className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed'
                                   >
                                     <Minus className='w-4 h-4 text-gray-600' />
                                   </button>
                                   <span className='font-semibold text-gray-900 w-8 text-center'>{quantities[item._id] || 0}</span>
                                   <button
+                                    disabled={isBusy}
                                     onClick={() => handleQuantityChange(item._id, 1)}
-                                    className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300'
+                                    className='w-7 h-7 bg-white hover:bg-warm rounded-md flex items-center justify-center transition-colors border border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed'
                                   >
                                     <Plus className='w-4 h-4 text-gray-600' />
                                   </button>
@@ -302,13 +323,21 @@ const CartPage = () => {
 
                               {quantities[item._id] !== item.quantity && (
                                 <button
-                                  className='w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white py-2 rounded-lg font-semibold transition-all duration-200'
+                                  disabled={isBusy}
+                                  className='w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary text-white py-2 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2'
                                   onClick={async () => {
                                     await updateCart(item._id, { quantity: quantities[item._id] });
                                     getCart();
                                   }}
                                 >
-                                  Update Cart
+                                  {isUpdating ? (
+                                    <>
+                                      <Loader2 className='w-4 h-4 animate-spin' />
+                                      <span>Saving...</span>
+                                    </>
+                                  ) : (
+                                    <span>Update Cart</span>
+                                  )}
                                 </button>
                               )}
                             </div>

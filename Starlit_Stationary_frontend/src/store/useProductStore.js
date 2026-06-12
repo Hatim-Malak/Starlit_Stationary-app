@@ -61,7 +61,7 @@ export const useProduct = create((set,get)=>({
                 })
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || "❌ Couldn't find products. Please try a different search")
+            toast.error(error.response?.data?.message || "No products found for this search")
         }finally{
             set({searchingProduct:false})
         }
@@ -83,7 +83,7 @@ export const useProduct = create((set,get)=>({
                 })
             }
         } catch (error) {
-            toast.error(error.response?.data?.message || "❌ Failed to load category products. Please try again")
+            toast.error(error.response?.data?.message || "Failed to load products. Please try again")
         }finally{
             set({gettingCategoryProduct:false})
         }
