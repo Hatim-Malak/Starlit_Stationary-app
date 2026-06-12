@@ -292,13 +292,63 @@ const HomePage = () => {
           {/* Featured Products Section or Fallback */}
           {gettingFeatureProduct ? (
             <div className='flex-1 flex items-center justify-center px-4 pb-8'>
-              <div className='w-full max-w-[1400px] bg-warm/95 rounded-3xl shadow-2xl overflow-hidden'>
-                 <div className='h-24 bg-gray-300 animate-pulse'></div>
-                 <div className='flex gap-6 lg:gap-8 p-8 overflow-hidden'>
+              <div className='w-full max-w-[1400px] bg-warm/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-warm/20 overflow-hidden'>
+                {/* Section Header */}
+                <div className='bg-gradient-to-r from-secondary to-primary px-6 py-6 lg:py-8'>
+                  <div className='flex items-center justify-center gap-3'>
+                    <div className='p-2 bg-white/20 rounded-lg backdrop-blur-sm'>
+                      <Sparkles className='text-warm' size={28} />
+                    </div>
+                    <div className='text-center'>
+                      <h2 className='font-bold text-3xl lg:text-4xl text-white'>
+                        Featured Products
+                      </h2>
+                      <p className='text-accent-100 text-sm mt-1'>
+                        Handpicked bestsellers just for you
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Detailed Cards Skeleton */}
+                <div className='bg-gradient-to-b from-warm-50 to-warm w-full flex flex-col justify-center items-center pb-8 px-4 lg:px-12'>
+                  <div className='w-full overflow-hidden'>
+                    <div className='flex gap-6 lg:gap-8 py-8'>
+                      {[...Array(5)].map((_, i) => (
+                        <div 
+                          key={i} 
+                          className="flex-[0_0_80%] sm:flex-[0_0_45%] md:flex-[0_0_30%] lg:flex-[0_0_22%] xl:flex-[0_0_18%]"
+                        >
+                          <div className='flex flex-col h-[380px] w-full justify-between rounded-3xl bg-white shadow-xl border border-warm/40 overflow-hidden'>
+                            {/* Image Skeleton */}
+                            <div className='relative w-full p-4 h-[200px]'>
+                              <div className='w-full h-full rounded-2xl bg-gray-200 animate-pulse'></div>
+                            </div>
+
+                            {/* Info Skeleton */}
+                            <div className='w-full flex flex-col justify-end px-5 pb-5 gap-3'>
+                              <div className='flex flex-col gap-3'>
+                                <div className='w-3/4 h-5 bg-gray-200 rounded-full animate-pulse'></div>
+                                <div className='flex items-center justify-between mt-1'>
+                                  <div className='w-1/3 h-6 bg-gray-200 rounded-full animate-pulse'></div>
+                                  <div className='w-1/4 h-4 bg-gray-200 rounded-full animate-pulse'></div>
+                                </div>
+                              </div>
+                              <div className='w-full h-11 mt-2 bg-gray-200 rounded-xl animate-pulse'></div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Dots Skeleton */}
+                  <div className='flex gap-2.5 mt-2'>
                     {[...Array(5)].map((_, i) => (
-                      <div key={i} className='min-w-[250px] h-[380px] bg-gray-200 rounded-3xl animate-pulse'></div>
+                      <div key={i} className='w-2.5 h-2.5 bg-primary/20 rounded-full animate-pulse'></div>
                     ))}
-                 </div>
+                  </div>
+                </div>
               </div>
             </div>
           ) : featureProduct && featureProduct.length > 0 ? (
