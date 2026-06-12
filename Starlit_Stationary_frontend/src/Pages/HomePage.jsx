@@ -4,7 +4,6 @@ import Navbar from "../Components/Navbar.jsx";
 import PageTransition from "../Components/PageTransition.jsx";
 import { useProduct } from "../store/useProductStore.js";
 import { useCart } from "../store/useCartStore.js";
-import { useSmartLoader } from "../Hooks/useSmartLoader.js";
 import { Loader2, Sparkles, ShoppingBag, Star, TrendingUp, Package } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -195,12 +194,6 @@ const HomePage = () => {
   const { gettingFeatureProduct, getFeatureProduct, featureProduct } = useProduct();
   const [quantities, setQuantities] = useState({});
 
-  const { showLoader } = useSmartLoader({ 
-    isLoading: gettingFeatureProduct, 
-    delay: 300, 
-    minDisplay: 500 
-  });
-
   useEffect(() => {
     getFeatureProduct();
   }, [getFeatureProduct]);
@@ -217,34 +210,6 @@ const HomePage = () => {
     await addToCart({ productId: product._id, quantity: qty });
     setQuantities(prev => ({ ...prev, [product._id]: 0 }));
   };
-
-  if (showLoader || (!featureProduct && gettingFeatureProduct)) {
-    return (
-      <div className='min-h-screen flex flex-col bg-gradient-to-br from-primary via-secondary to-primary'>
-        <Navbar />
-        <div className='flex-1 flex flex-col'>
-          <div className='relative w-full py-12 lg:py-16'>
-            <div className='relative container mx-auto px-4 flex flex-col items-center gap-6 lg:gap-8 text-center z-10'>
-              <div className='w-48 h-8 bg-white/20 rounded-full animate-pulse'></div>
-              <div className='w-full max-w-2xl h-16 md:h-24 bg-white/20 rounded-2xl animate-pulse'></div>
-              <div className='w-full max-w-lg h-8 bg-white/20 rounded-xl animate-pulse'></div>
-              <div className='w-40 h-14 bg-white/20 rounded-full animate-pulse mt-4'></div>
-            </div>
-          </div>
-          <div className='flex-1 flex items-center justify-center px-4 pb-8'>
-            <div className='w-full max-w-[1400px] bg-warm/95 rounded-3xl shadow-2xl overflow-hidden'>
-               <div className='h-24 bg-gray-300 animate-pulse'></div>
-               <div className='flex gap-6 lg:gap-8 p-8 overflow-hidden'>
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className='min-w-[250px] h-[380px] bg-gray-200 rounded-3xl animate-pulse'></div>
-                  ))}
-               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <PageTransition>
@@ -325,7 +290,18 @@ const HomePage = () => {
           </div>
 
           {/* Featured Products Section or Fallback */}
-          {featureProduct && featureProduct.length > 0 ? (
+          {gettingFeatureProduct ? (
+            <div className='flex-1 flex items-center justify-center px-4 pb-8'>
+              <div className='w-full max-w-[1400px] bg-warm/95 rounded-3xl shadow-2xl overflow-hidden'>
+                 <div className='h-24 bg-gray-300 animate-pulse'></div>
+                 <div className='flex gap-6 lg:gap-8 p-8 overflow-hidden'>
+                    {[...Array(5)].map((_, i) => (
+                      <div key={i} className='min-w-[250px] h-[380px] bg-gray-200 rounded-3xl animate-pulse'></div>
+                    ))}
+                 </div>
+              </div>
+            </div>
+          ) : featureProduct && featureProduct.length > 0 ? (
             <div className='flex-1 flex items-center justify-center px-4 pb-8'>
               <div className='w-full max-w-[1400px] bg-warm/95 backdrop-blur-sm rounded-3xl shadow-2xl border border-warm/20 overflow-hidden'>
                 {/* Section Header */}
