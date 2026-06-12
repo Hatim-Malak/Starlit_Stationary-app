@@ -32,23 +32,25 @@ const App = () => {
     }
   }, [authUser]);
 
-  if(isCheckingAuth){
-    return null;
-  }
+  const PageLoader = () => (
+    <div className='h-screen w-screen flex justify-center items-center bg-gradient-to-br from-primary via-secondary to-primary'>
+      <Loader className='animate-spin text-white' size={48} />
+    </div>
+  );
   return (
     <div className='h-full w-full'>
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/product' element={<ProductPage/>}/>
         <Route path='/contactUs' element={<Contact_Us/>}/>
-        <Route path='/signup' element={!authUser?<SignUpPage/>:<Navigate to="/" />}/>
-        <Route path='/signin' element={!authUser?<SignInPage/>:<Navigate to="/" />}/>
-        <Route path='/cart' element={authUser?<CartPage/>:<Navigate to="/" />}/>
-        <Route path='/order' element={authUser?<OrderPage/>:<Navigate to="/" />}/>
-        <Route path='/yourorder' element={authUser?<YourOrderPage/>:<Navigate to="/" />}/>
-        <Route path='/admin_order' element={authAdmin?<AdminOrders/>:<Navigate to="/" />}/>
-        <Route path='/newproduct' element={authAdmin?<NewProduct/>:<Navigate to="/" />}/>
-        <Route path='/updateproduct' element={authAdmin?<UpdateProduct/>:<Navigate to="/" />}/>
+        <Route path='/signup' element={isCheckingAuth ? <PageLoader/> : !authUser ? <SignUpPage/> : <Navigate to="/" />}/>
+        <Route path='/signin' element={isCheckingAuth ? <PageLoader/> : !authUser ? <SignInPage/> : <Navigate to="/" />}/>
+        <Route path='/cart' element={isCheckingAuth ? <PageLoader/> : authUser ? <CartPage/> : <Navigate to="/" />}/>
+        <Route path='/order' element={isCheckingAuth ? <PageLoader/> : authUser ? <OrderPage/> : <Navigate to="/" />}/>
+        <Route path='/yourorder' element={isCheckingAuth ? <PageLoader/> : authUser ? <YourOrderPage/> : <Navigate to="/" />}/>
+        <Route path='/admin_order' element={isCheckingAuth || isCheckingAdmin ? <PageLoader/> : authAdmin ? <AdminOrders/> : <Navigate to="/" />}/>
+        <Route path='/newproduct' element={isCheckingAuth || isCheckingAdmin ? <PageLoader/> : authAdmin ? <NewProduct/> : <Navigate to="/" />}/>
+        <Route path='/updateproduct' element={isCheckingAuth || isCheckingAdmin ? <PageLoader/> : authAdmin ? <UpdateProduct/> : <Navigate to="/" />}/>
       </Routes>
       <Toaster
         position="top-center"
