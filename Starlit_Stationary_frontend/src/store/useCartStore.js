@@ -26,12 +26,15 @@ export const useCart = create((set,get)=>({
 
     addToCart:async(data)=>{
         set({addingProductId:data.productId})
+        const start = Date.now();
         try {
             const res = await axiosInstance.post("Cart/add",data)
             toast.success("Item added to cart")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
+            const elapsed = Date.now() - start;
+            if(elapsed < 2000) await new Promise(r => setTimeout(r, 2000 - elapsed));
             set({addingProductId:null})
         }
     },
@@ -48,6 +51,7 @@ export const useCart = create((set,get)=>({
     },
     updateCart:async(itemId,data)=>{
         set({updatingItemId:itemId})
+        const start = Date.now();
         try {
             const res = await axiosInstance.put(`Cart/update/${itemId}`,data)
             toast.success("Cart updated successfully")
@@ -63,17 +67,22 @@ export const useCart = create((set,get)=>({
         }catch (error) {
             toast.error(error.response.data.message)
         }finally{
+            const elapsed = Date.now() - start;
+            if(elapsed < 2000) await new Promise(r => setTimeout(r, 2000 - elapsed));
             set({updatingItemId:null})
         }
     },
     removeCart:async(itemId)=>{
         set({removingItemId:itemId})
+        const start = Date.now();
         try {
             const res = await axiosInstance.delete(`Cart/remove/${itemId}`)
             toast.success("Item removed from cart")
         } catch (error) {
             toast.error(error.response.data.message)
         }finally{
+            const elapsed = Date.now() - start;
+            if(elapsed < 2000) await new Promise(r => setTimeout(r, 2000 - elapsed));
             set({removingItemId:null})
         }
     },
