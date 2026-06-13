@@ -1,4 +1,4 @@
-# ✨ Starlit Stationary — New Features & Enhancements
+# Starlit Stationary -- New Features and Enhancements
 
 > This document covers all **new features, enhancements, and architectural improvements** added to the Starlit Stationary e-commerce platform that are **not documented** in the individual [Frontend README](./Starlit_Stationary_frontend/README.md) or [Backend README](./Starlit_Stationary_backend/README.md).
 
@@ -8,26 +8,26 @@
 
 - [Overview](#overview)
 - [New Backend Features](#new-backend-features)
-  - [Redis Caching Layer (Upstash)](#1--redis-caching-layer-upstash)
-  - [API Rate Limiting](#2--api-rate-limiting)
-  - [Geolocation-Based Delivery Validation](#3--geolocation-based-delivery-validation)
-  - [Delivery OTP Verification System](#4--delivery-otp-verification-system)
-  - [Order Cancellation with Reason Tracking](#5--order-cancellation-with-reason-tracking)
-  - [Customer-Specific Order Lookup](#6--customer-specific-order-lookup)
-  - [Order Filtering by Status](#7--order-filtering-by-status)
-  - [Featured Product System](#8--featured-product-system)
-  - [Category-Based Product Browsing](#9--category-based-product-browsing)
-  - [Real-Time Stock Management](#10--real-time-stock-management)
+  - [Redis Caching Layer (Upstash)](#1-redis-caching-layer-upstash)
+  - [API Rate Limiting](#2-api-rate-limiting)
+  - [Geolocation-Based Delivery Validation](#3-geolocation-based-delivery-validation)
+  - [Delivery OTP Verification System](#4-delivery-otp-verification-system)
+  - [Order Cancellation with Reason Tracking](#5-order-cancellation-with-reason-tracking)
+  - [Customer-Specific Order Lookup](#6-customer-specific-order-lookup)
+  - [Order Filtering by Status](#7-order-filtering-by-status)
+  - [Featured Product System](#8-featured-product-system)
+  - [Category-Based Product Browsing](#9-category-based-product-browsing)
+  - [Real-Time Stock Management](#10-real-time-stock-management)
 - [New Frontend Features](#new-frontend-features)
-  - [Custom React Hooks](#11--custom-react-hooks)
-  - [Client-Side Pagination](#12--client-side-pagination)
-  - [Persistent Cart Total Price (Zustand Persist)](#13--persistent-cart-total-price-zustand-persist)
-  - [Skeleton Loading States](#14--skeleton-loading-states)
-  - [Optimistic State Updates](#15--optimistic-state-updates)
-  - [OTP Input UI with Auto-Focus](#16--otp-input-ui-with-auto-focus)
-  - [Order Cancellation UI with Reason Form](#17--order-cancellation-ui-with-reason-form)
-  - [Admin Order Management Dashboard](#18--admin-order-management-dashboard)
-  - [Minimum Loading Duration (Anti-Flicker)](#19--minimum-loading-duration-anti-flicker)
+  - [Custom React Hooks](#11-custom-react-hooks)
+  - [Client-Side Pagination](#12-client-side-pagination)
+  - [Persistent Cart Total Price (Zustand Persist)](#13-persistent-cart-total-price-zustand-persist)
+  - [Skeleton Loading States](#14-skeleton-loading-states)
+  - [Optimistic State Updates](#15-optimistic-state-updates)
+  - [OTP Input UI with Auto-Focus](#16-otp-input-ui-with-auto-focus)
+  - [Order Cancellation UI with Reason Form](#17-order-cancellation-ui-with-reason-form)
+  - [Admin Order Management Dashboard](#18-admin-order-management-dashboard)
+  - [Minimum Loading Duration (Anti-Flicker)](#19-minimum-loading-duration-anti-flicker)
 - [New Environment Variables](#new-environment-variables)
 - [New Dependencies](#new-dependencies)
 - [Architecture Diagram](#architecture-diagram)
@@ -41,21 +41,21 @@ The Starlit Stationary platform has undergone significant enhancements focused o
 
 | Area | Enhancement |
 |------|-------------|
-| 🚀 Performance | Redis caching on all read-heavy endpoints |
-| 🛡️ Security | Granular rate limiting per endpoint category |
-| 📍 Logistics | Geocoded delivery radius validation (15 km) |
-| 🔐 Verification | 6-digit OTP delivery confirmation system |
-| ❌ Orders | Full order cancellation flow with reason tracking |
-| 🎯 UX | Skeleton loaders, debounced search, pagination hooks |
-| 💾 State | Persistent cart pricing via Zustand middleware |
+| Performance | Redis caching on all read-heavy endpoints |
+| Security | Granular rate limiting per endpoint category |
+| Logistics | Geocoded delivery radius validation (15 km) |
+| Verification | 6-digit OTP delivery confirmation system |
+| Orders | Full order cancellation flow with reason tracking |
+| UX | Skeleton loaders, debounced search, pagination hooks |
+| State | Persistent cart pricing via Zustand middleware |
 
 ---
 
 ## New Backend Features
 
-### 1. 🗄️ Redis Caching Layer (Upstash)
+### 1. Redis Caching Layer (Upstash)
 
-**File:** [`cache.js`](./Starlit_Stationary_backend/src/lib/cache.js)
+**File:** [cache.js](./Starlit_Stationary_backend/src/lib/cache.js)
 
 A full Redis caching layer has been introduced using **Upstash Redis** (serverless Redis) to dramatically reduce MongoDB query load on read-heavy endpoints.
 
@@ -66,7 +66,7 @@ A full Redis caching layer has been introduced using **Upstash Redis** (serverle
 | `getCache(key)` | Retrieves a cached value by key. Handles both JSON and plain string values. |
 | `setCache(key, value, ttl)` | Stores a value with a configurable TTL (default: 60 seconds). Auto-serializes objects to JSON. |
 | `delCache(...keys)` | Invalidates one or more cache keys. Used on all write operations. |
-| `cacheResponse(key, ttl, callback)` | **Cache-aside pattern** — returns cached data if available, otherwise executes the callback, caches the result, and returns it. |
+| `cacheResponse(key, ttl, callback)` | **Cache-aside pattern** -- returns cached data if available, otherwise executes the callback, caches the result, and returns it. |
 
 #### Cached Endpoints
 
@@ -86,17 +86,17 @@ A full Redis caching layer has been introduced using **Upstash Redis** (serverle
 
 Cache is invalidated intelligently on every write operation:
 
-- **Product create/update/delete** → Invalidates `products:all`, `products:featured`, and relevant `products:category:{category}`
-- **Cart operations (add/update/remove/delete)** → Invalidates `cart:{userId}`
-- **Order placement** → Invalidates `order:my:{userId}` and all `orders:all:*` variants
-- **OTP verification** → Invalidates order caches for user, admin, and customer views
-- **Order cancellation** → Same comprehensive invalidation as OTP verification
+- **Product create/update/delete** invalidates `products:all`, `products:featured`, and relevant `products:category:{category}`
+- **Cart operations (add/update/remove/delete)** invalidates `cart:{userId}`
+- **Order placement** invalidates `order:my:{userId}` and all `orders:all:*` variants
+- **OTP verification** invalidates order caches for user, admin, and customer views
+- **Order cancellation** uses the same comprehensive invalidation as OTP verification
 
 ---
 
-### 2. 🛡️ API Rate Limiting
+### 2. API Rate Limiting
 
-**File:** [`rateLimiting.js`](./Starlit_Stationary_backend/src/lib/rateLimiting.js)
+**File:** [rateLimiting.js](./Starlit_Stationary_backend/src/lib/rateLimiting.js)
 
 A comprehensive rate limiting system built on **Upstash Ratelimit** with a **sliding window** algorithm. Each endpoint category has its own limiter to prevent abuse while allowing legitimate traffic.
 
@@ -123,7 +123,6 @@ A comprehensive rate limiting system built on **Upstash Ratelimit** with a **sli
 Rate limiting is applied via the `withRateLimit(limiter)` Express middleware factory:
 
 ```javascript
-// Example: applied to product routes
 router.get("/all", withRateLimit(productLimiter), allProducts)
 router.get("/search", withRateLimit(searchLimiter), searchProduct)
 ```
@@ -134,17 +133,17 @@ router.get("/search", withRateLimit(searchLimiter), searchProduct)
 
 ---
 
-### 3. 📍 Geolocation-Based Delivery Validation
+### 3. Geolocation-Based Delivery Validation
 
-**File:** [`map.js`](./Starlit_Stationary_backend/src/lib/map.js)
+**File:** [map.js](./Starlit_Stationary_backend/src/lib/map.js)
 
 A middleware-based delivery area validation system that ensures orders can only be placed within a **15 km radius** of the store location using the **OpenCage Geocoding API**.
 
 #### How It Works
 
-1. **Address Geocoding**: The customer's shipping address is geocoded to latitude/longitude coordinates via the OpenCage API
+1. **Address Geocoding**: The customer's shipping address and postal code are geocoded together to latitude/longitude coordinates via the OpenCage API
 2. **Address Validation**: The system checks geocoding confidence and result type:
-   - Confidence score must be ≥ 5 (filters out vague/fake addresses)
+   - Confidence score must be >= 5 (filters out vague/fake addresses)
    - Result type must not be just `city` or `state` (ensures specific street-level address)
 3. **Distance Calculation**: Uses the **Haversine formula** to calculate the great-circle distance between the store's fixed coordinates and the customer's address
 4. **Range Check**: Orders outside a 15 km radius are rejected with a clear error message
@@ -167,17 +166,17 @@ router.post("/", protectRoute, withRateLimit(orderWriteLimiter), validateDistanc
 
 ---
 
-### 4. 🔐 Delivery OTP Verification System
+### 4. Delivery OTP Verification System
 
-**Files:** [`order.controller.js`](./Starlit_Stationary_backend/src/Controllers/order.controller.js), [`order.model.js`](./Starlit_Stationary_backend/src/Models/order.model.js)
+**Files:** [order.controller.js](./Starlit_Stationary_backend/src/Controllers/order.controller.js), [order.model.js](./Starlit_Stationary_backend/src/Models/order.model.js)
 
 A secure delivery confirmation system using **6-digit one-time passwords (OTP)**.
 
 #### Flow
 
 ```
-Order Placed → OTP Generated → Customer Sees OTP → Delivery Person Arrives
-    → Admin Enters OTP → OTP Verified → Order Marked as Delivered + Paid
+Order Placed -> OTP Generated -> Customer Sees OTP -> Delivery Person Arrives
+    -> Admin Enters OTP -> OTP Verified -> Order Marked as Delivered + Paid
 ```
 
 #### Technical Details
@@ -187,9 +186,9 @@ Order Placed → OTP Generated → Customer Sees OTP → Delivery Person Arrives
 - **Storage**: Stored in the order document under `deliveryOTP` subdocument:
   ```javascript
   deliveryOTP: {
-    code: String,       // 6-digit OTP
-    expiredAt: Date,    // Expiry timestamp
-    verified: Boolean   // Verification status
+    code: String,
+    expiredAt: Date,
+    verified: Boolean
   }
   ```
 - **Verification**: Admin-only endpoint that checks code match and expiration
@@ -206,9 +205,9 @@ Rate Limit: 5 requests/minute (otpLimiter)
 
 ---
 
-### 5. ❌ Order Cancellation with Reason Tracking
+### 5. Order Cancellation with Reason Tracking
 
-**Files:** [`order.controller.js`](./Starlit_Stationary_backend/src/Controllers/order.controller.js), [`order.model.js`](./Starlit_Stationary_backend/src/Models/order.model.js)
+**Files:** [order.controller.js](./Starlit_Stationary_backend/src/Controllers/order.controller.js), [order.model.js](./Starlit_Stationary_backend/src/Models/order.model.js)
 
 A full order cancellation system with mandatory reason tracking.
 
@@ -223,9 +222,9 @@ isOrderCanceled: {
 
 #### Business Rules
 
-- ✅ Orders can be cancelled if they are **not yet delivered** and **not yet paid**
-- ❌ Cannot cancel already delivered or paid orders
-- ❌ Cancellation reason is mandatory — empty reasons are rejected
+- Orders can be cancelled if they are **not yet delivered** and **not yet paid**
+- Cannot cancel already delivered or paid orders
+- Cancellation reason is mandatory -- empty reasons are rejected
 
 #### API Endpoint
 
@@ -238,9 +237,9 @@ Rate Limit: 10 requests/minute (orderWriteLimiter)
 
 ---
 
-### 6. 🔍 Customer-Specific Order Lookup
+### 6. Customer-Specific Order Lookup
 
-**File:** [`order.controller.js`](./Starlit_Stationary_backend/src/Controllers/order.controller.js)
+**File:** [order.controller.js](./Starlit_Stationary_backend/src/Controllers/order.controller.js)
 
 Allows searching orders by **customer name** (shipping address full name). Useful for admins to look up specific customer orders.
 
@@ -254,9 +253,9 @@ Returns all orders matching the customer name, with populated user and product d
 
 ---
 
-### 7. 📊 Order Filtering by Status
+### 7. Order Filtering by Status
 
-**File:** [`order.controller.js`](./Starlit_Stationary_backend/src/Controllers/order.controller.js)
+**File:** [order.controller.js](./Starlit_Stationary_backend/src/Controllers/order.controller.js)
 
 Admin order listing now supports filtering by delivery status:
 
@@ -274,9 +273,9 @@ Rate Limit: 30 requests/minute
 
 ---
 
-### 8. ⭐ Featured Product System
+### 8. Featured Product System
 
-**Files:** [`product.model.js`](./Starlit_Stationary_backend/src/Models/product.model.js), [`product.controller.js`](./Starlit_Stationary_backend/src/Controllers/product.controller.js)
+**Files:** [product.model.js](./Starlit_Stationary_backend/src/Models/product.model.js), [product.controller.js](./Starlit_Stationary_backend/src/Controllers/product.controller.js)
 
 Products can now be marked as **featured** via an enum field:
 
@@ -298,9 +297,9 @@ Cache: 60 seconds
 
 ---
 
-### 9. 🏷️ Category-Based Product Browsing
+### 9. Category-Based Product Browsing
 
-**File:** [`product.controller.js`](./Starlit_Stationary_backend/src/Controllers/product.controller.js)
+**File:** [product.controller.js](./Starlit_Stationary_backend/src/Controllers/product.controller.js)
 
 Products can be filtered by category with a dedicated cached endpoint:
 
@@ -312,9 +311,9 @@ Cache: 60 seconds
 
 ---
 
-### 10. 📦 Real-Time Stock Management
+### 10. Real-Time Stock Management
 
-**File:** [`cart.controller.js`](./Starlit_Stationary_backend/src/Controllers/cart.controller.js)
+**File:** [cart.controller.js](./Starlit_Stationary_backend/src/Controllers/cart.controller.js)
 
 Stock is now decremented in real-time when items are added to cart:
 
@@ -326,13 +325,13 @@ Stock is now decremented in real-time when items are added to cart:
 
 ## New Frontend Features
 
-### 11. 🪝 Custom React Hooks
+### 11. Custom React Hooks
 
 Three reusable custom hooks have been introduced in the `src/Hooks/` directory:
 
 #### `useDebounce(value, delay)`
 
-**File:** [`useDebounce.js`](./Starlit_Stationary_frontend/src/Hooks/useDebounce.js)
+**File:** [useDebounce.js](./Starlit_Stationary_frontend/src/Hooks/useDebounce.js)
 
 Debounces rapidly changing values (e.g., search input) to reduce unnecessary API calls.
 
@@ -342,14 +341,14 @@ const debouncedSearch = useDebounce(searchQuery, 300);
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `value` | any | — | The value to debounce |
+| `value` | any | -- | The value to debounce |
 | `delay` | number | 300ms | Debounce delay in milliseconds |
 
 ---
 
 #### `usePagination({ initialPage, initialLimit })`
 
-**File:** [`usePagination.js`](./Starlit_Stationary_frontend/src/Hooks/usePagination.js)
+**File:** [usePagination.js](./Starlit_Stationary_frontend/src/Hooks/usePagination.js)
 
 Full-featured pagination state management hook.
 
@@ -377,7 +376,7 @@ const { page, totalPages, nextPage, prevPage, hasNext, hasPrev } = usePagination
 
 #### `useSmartLoader({ delay, minDisplay })`
 
-**File:** [`useSmartLoader.js`](./Starlit_Stationary_frontend/src/Hooks/useSmartLoader.js)
+**File:** [useSmartLoader.js](./Starlit_Stationary_frontend/src/Hooks/useSmartLoader.js)
 
 An anti-flicker loading hook that prevents loading spinners from appearing for brief requests and ensures they display for a minimum duration when shown.
 
@@ -391,39 +390,37 @@ const { showLoader, isLoading, handleLoadingChange } = useSmartLoader({ delay: 3
 | `minDisplay` | number | 500ms | Minimum time to display the loader once shown |
 
 **Behavior:**
-- If a request completes in under 300ms → no loader shown at all
-- If a request takes longer → loader appears and stays for at least 500ms, preventing jank
+- If a request completes in under 300ms, no loader is shown at all
+- If a request takes longer, the loader appears and stays for at least 500ms, preventing jank
 
 ---
 
-### 12. 📄 Client-Side Pagination
+### 12. Client-Side Pagination
 
-**File:** [`useProductStore.js`](./Starlit_Stationary_frontend/src/store/useProductStore.js)
+**File:** [useProductStore.js](./Starlit_Stationary_frontend/src/store/useProductStore.js)
 
 The product store now implements client-side pagination with support for both array-based and paginated API responses:
 
 ```javascript
-// Store state includes pagination metadata
 totalProducts: 0,
 totalPages: 0,
 currentPage: 1,
 limit: 12,
 
-// Pagination controls
 setPage: (page) => set({ currentPage: page }),
 resetPagination: () => set({ currentPage: 1 }),
 ```
 
 Pagination is applied to all product-fetching methods:
-- `getProduct(page, limit)` — all products
-- `searchProduct(query, page, limit)` — search results
-- `getCategoryProduct(slug, page, limit)` — category products
+- `getProduct(page, limit)` -- all products
+- `searchProduct(query, page, limit)` -- search results
+- `getCategoryProduct(slug, page, limit)` -- category products
 
 ---
 
-### 13. 💾 Persistent Cart Total Price (Zustand Persist)
+### 13. Persistent Cart Total Price (Zustand Persist)
 
-**File:** [`useCartStore.js`](./Starlit_Stationary_frontend/src/store/useCartStore.js)
+**File:** [useCartStore.js](./Starlit_Stationary_frontend/src/store/useCartStore.js)
 
 The cart total price now **persists across page refreshes** and navigation using Zustand's `persist` middleware with `localStorage`:
 
@@ -447,9 +444,9 @@ This ensures the total price survives navigation from the cart page to the check
 
 ---
 
-### 14. 💀 Skeleton Loading States
+### 14. Skeleton Loading States
 
-**Files:** [`AdminOrders.jsx`](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx), [`YourOrderPage.jsx`](./Starlit_Stationary_frontend/src/Pages/YourOrderPage.jsx)
+**Files:** [AdminOrders.jsx](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx), [YourOrderPage.jsx](./Starlit_Stationary_frontend/src/Pages/YourOrderPage.jsx)
 
 Instead of simple spinners, the application now uses **content-aware skeleton loaders** (shimmer placeholders) that mirror the actual layout of the data being loaded:
 
@@ -461,9 +458,9 @@ This significantly improves perceived performance and reduces layout shift (CLS)
 
 ---
 
-### 15. ⚡ Optimistic State Updates
+### 15. Optimistic State Updates
 
-**File:** [`useOrderStore.js`](./Starlit_Stationary_frontend/src/store/useOrderStore.js)
+**File:** [useOrderStore.js](./Starlit_Stationary_frontend/src/store/useOrderStore.js)
 
 The order store implements **optimistic state updates** for immediate UI feedback:
 
@@ -475,7 +472,6 @@ set((state) => ({
   orders: state.orders.map(order => 
     order._id === id ? { ...order, isDelivered: true, isPaid: true, ... } : order
   ),
-  // Same for allOrders and specificOrders
 }))
 ```
 
@@ -484,9 +480,9 @@ Similarly, cancellation updates are applied optimistically across all three orde
 
 ---
 
-### 16. 🔢 OTP Input UI with Auto-Focus
+### 16. OTP Input UI with Auto-Focus
 
-**File:** [`AdminOrders.jsx`](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx)
+**File:** [AdminOrders.jsx](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx)
 
 A polished 6-digit OTP input component with:
 
@@ -499,13 +495,13 @@ A polished 6-digit OTP input component with:
 
 ---
 
-### 17. 📝 Order Cancellation UI with Reason Form
+### 17. Order Cancellation UI with Reason Form
 
-**Files:** [`AdminOrders.jsx`](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx), [`YourOrderPage.jsx`](./Starlit_Stationary_frontend/src/Pages/YourOrderPage.jsx)
+**Files:** [AdminOrders.jsx](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx), [YourOrderPage.jsx](./Starlit_Stationary_frontend/src/Pages/YourOrderPage.jsx)
 
 A two-step cancellation flow is implemented on both admin and customer order views:
 
-1. **Step 1**: Click "Cancel Order" button — reveals the cancellation form
+1. **Step 1**: Click "Cancel Order" button to reveal the cancellation form
 2. **Step 2**: Enter a cancellation reason in the textarea, then "Confirm Cancellation"
 3. **Back button**: Users can dismiss the form without cancelling
 4. **Loading state**: Button shows a spinner with "Cancelling..." text while processing
@@ -514,9 +510,9 @@ A two-step cancellation flow is implemented on both admin and customer order vie
 
 ---
 
-### 18. 📋 Admin Order Management Dashboard
+### 18. Admin Order Management Dashboard
 
-**File:** [`AdminOrders.jsx`](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx)
+**File:** [AdminOrders.jsx](./Starlit_Stationary_frontend/src/Pages/AdminOrders.jsx)
 
 A comprehensive admin order management interface with:
 
@@ -535,9 +531,9 @@ A comprehensive admin order management interface with:
 
 ---
 
-### 19. ⏱️ Minimum Loading Duration (Anti-Flicker)
+### 19. Minimum Loading Duration (Anti-Flicker)
 
-**File:** [`useCartStore.js`](./Starlit_Stationary_frontend/src/store/useCartStore.js)
+**File:** [useCartStore.js](./Starlit_Stationary_frontend/src/store/useCartStore.js)
 
 Cart operations (add, update, remove) enforce a **minimum 2-second loading state** to prevent jarring UI flickers from near-instant API responses:
 
@@ -564,23 +560,20 @@ The following environment variables are **new** and not documented in the existi
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST API URL for caching and rate limiting | ✅ Yes |
-| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis authentication token | ✅ Yes |
-| `OPENCAGE_API_KEY` | OpenCage Geocoding API key for address validation | ✅ Yes |
-| `FIXED_LAT` | Store's fixed latitude coordinate (delivery origin) | ✅ Yes |
-| `FIXED_LON` | Store's fixed longitude coordinate (delivery origin) | ✅ Yes |
+| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST API URL for caching and rate limiting | Yes |
+| `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis authentication token | Yes |
+| `OPENCAGE_API_KEY` | OpenCage Geocoding API key for address validation | Yes |
+| `FIXED_LAT` | Store's fixed latitude coordinate (delivery origin) | Yes |
+| `FIXED_LON` | Store's fixed longitude coordinate (delivery origin) | Yes |
 
 ### Example `.env` additions
 
 ```env
-# Upstash Redis (Caching & Rate Limiting)
 UPSTASH_REDIS_REST_URL=https://your-instance.upstash.io
 UPSTASH_REDIS_REST_TOKEN=your_upstash_token
 
-# OpenCage Geocoding (Delivery Validation)
 OPENCAGE_API_KEY=your_opencage_api_key
 
-# Store Fixed Coordinates (Delivery Origin)
 FIXED_LAT=22.6995977
 FIXED_LON=75.8542953
 ```
@@ -606,39 +599,39 @@ No new runtime dependencies were added. All new features are built using existin
 ## Architecture Diagram
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                        CLIENT (React + Vite)                     │
-│                                                                  │
-│  ┌──────────┐ ┌───────────┐ ┌───────────┐ ┌──────────────────┐  │
-│  │useDebounce│ │usePaginate│ │useSmartLdr│ │ Zustand Stores   │  │
-│  └──────────┘ └───────────┘ └───────────┘ │ (persist:price)  │  │
-│                                            └──────────────────┘  │
-│  ┌────────────────────────────────────────────────────────────┐  │
-│  │ Pages: AdminOrders | YourOrder | Order | Cart | Product    │  │
-│  │ Features: Skeleton Loaders | OTP Input | Cancel Flow       │  │
-│  └────────────────────────────────────────────────────────────┘  │
-└──────────────────────────┬───────────────────────────────────────┘
-                           │ HTTPS (Axios)
-                           ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    SERVER (Express.js + Node)                    │
-│                                                                  │
-│  ┌──────────────┐   ┌─────────────────┐   ┌────────────────┐   │
-│  │  Rate Limiter │──▶│   Auth + Admin   │──▶│  Controllers   │   │
-│  │  (Upstash)    │   │   Middleware     │   │                │   │
-│  └──────────────┘   └─────────────────┘   └───────┬────────┘   │
-│                                                     │            │
-│  ┌──────────────┐   ┌─────────────────┐            │            │
-│  │ Geo Validator │   │  Redis Cache    │◀───────────┘            │
-│  │ (OpenCage)    │   │  (Upstash)      │                        │
-│  └──────────────┘   └────────┬────────┘                        │
-│                               │                                  │
-│                               ▼                                  │
-│                    ┌─────────────────┐                           │
-│                    │    MongoDB      │                           │
-│                    │  (Mongoose)     │                           │
-│                    └─────────────────┘                           │
-└─────────────────────────────────────────────────────────────────┘
++------------------------------------------------------------------+
+|                        CLIENT (React + Vite)                      |
+|                                                                   |
+|  +------------+ +-------------+ +-------------+ +---------------+|
+|  |useDebounce | |usePagination| |useSmartLoader| | Zustand Stores||
+|  +------------+ +-------------+ +-------------+ | (persist:price)||
+|                                                  +---------------+|
+|  +--------------------------------------------------------------+|
+|  | Pages: AdminOrders | YourOrder | Order | Cart | Product      ||
+|  | Features: Skeleton Loaders | OTP Input | Cancel Flow         ||
+|  +--------------------------------------------------------------+|
++-----------------------------+------------------------------------+
+                              | HTTPS (Axios)
+                              v
++------------------------------------------------------------------+
+|                    SERVER (Express.js + Node)                      |
+|                                                                   |
+|  +--------------+   +------------------+   +-----------------+   |
+|  | Rate Limiter |-->| Auth + Admin     |-->| Controllers     |   |
+|  | (Upstash)    |   | Middleware       |   |                 |   |
+|  +--------------+   +------------------+   +--------+--------+   |
+|                                                      |            |
+|  +--------------+   +------------------+             |            |
+|  | Geo Validator|   | Redis Cache      |<------------+            |
+|  | (OpenCage)   |   | (Upstash)        |                         |
+|  +--------------+   +---------+--------+                         |
+|                               |                                   |
+|                               v                                   |
+|                    +------------------+                           |
+|                    |    MongoDB       |                           |
+|                    |   (Mongoose)     |                           |
+|                    +------------------+                           |
++------------------------------------------------------------------+
 ```
 
 ---
@@ -649,46 +642,43 @@ No new runtime dependencies were added. All new features are built using existin
 
 In addition to the prerequisites listed in the individual READMEs, you now need:
 
-1. **Upstash Redis account** — Sign up at [upstash.com](https://upstash.com) and create a Redis database
-2. **OpenCage API key** — Register at [opencagedata.com](https://opencagedata.com) for geocoding
+1. **Upstash Redis account** -- Sign up at [upstash.com](https://upstash.com) and create a Redis database
+2. **OpenCage API key** -- Register at [opencagedata.com](https://opencagedata.com) for geocoding
 
 ### Quick Setup
 
 ```bash
-# 1. Clone the repository
 git clone <repository-url>
 cd E-commerce
 
-# 2. Setup Backend
 cd Starlit_Stationary_backend
 npm install
-# Add UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN, OPENCAGE_API_KEY,
-# FIXED_LAT, and FIXED_LON to your .env file
 npm run dev
 
-# 3. Setup Frontend (in a new terminal)
 cd Starlit_Stationary_frontend
 npm install
 npm run dev
 ```
 
+Make sure to add `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`, `OPENCAGE_API_KEY`, `FIXED_LAT`, and `FIXED_LON` to the backend `.env` file before starting the server.
+
 ### Verifying New Features
 
 | Feature | How to Test |
 |---------|-------------|
-| Redis Caching | Hit the same product endpoint twice — second response should be faster (check server logs) |
-| Rate Limiting | Rapidly hit an endpoint beyond its limit — should receive 429 status |
-| Geo Validation | Place an order with an address >15km from the store — should be rejected |
-| OTP Verification | Place an order → note the OTP on "Your Orders" page → enter it in Admin Orders |
-| Order Cancellation | Go to "Your Orders" → click Cancel → provide a reason → confirm |
-| Skeleton Loaders | Navigate to "Your Orders" or "Admin Orders" with slow network — observe skeleton UI |
+| Redis Caching | Hit the same product endpoint twice -- second response should be faster (check server logs) |
+| Rate Limiting | Rapidly hit an endpoint beyond its limit -- should receive 429 status |
+| Geo Validation | Place an order with an address >15km from the store -- should be rejected |
+| OTP Verification | Place an order, note the OTP on "Your Orders" page, enter it in Admin Orders |
+| Order Cancellation | Go to "Your Orders", click Cancel, provide a reason, confirm |
+| Skeleton Loaders | Navigate to "Your Orders" or "Admin Orders" with slow network -- observe skeleton UI |
 
 ---
 
 ## Related Documentation
 
-- [Frontend README](./Starlit_Stationary_frontend/README.md) — Core frontend setup, pages, components, and deployment
-- [Backend README](./Starlit_Stationary_backend/README.md) — Core backend setup, API endpoints, models, and authentication
+- [Frontend README](./Starlit_Stationary_frontend/README.md) -- Core frontend setup, pages, components, and deployment
+- [Backend README](./Starlit_Stationary_backend/README.md) -- Core backend setup, API endpoints, models, and authentication
 
 ---
 
